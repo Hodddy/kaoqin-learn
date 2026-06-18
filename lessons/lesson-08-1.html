@@ -14,8 +14,24 @@
 <div class="sec"><h2>③ 分支(branch)</h2><div class="proj">
 <b>分支</b>=平行的开发线。我们把所有工作合到了 <code>main</code> 分支、删掉了 master。多人协作时常各开分支、做完合并(merge)，互不干扰。
 </div></div>
-<div class="sec"><h2>④ 小结</h2>
-<div class="recap"><span class="chip">Git=版本时光机</span><span class="chip">GitHub=云端仓库</span><span class="chip">add→commit→push</span><span class="chip">分支=平行开发线</span></div>
-<div class="memo">🧠 记忆点：commit 是存档，push 是上云，branch 是平行线</div></div>
+<div class="sec"><h2>④ 多人协作：先拉后推（重要）</h2>
+<p>这个项目<b>不止你一个人改</b>（已经有协作者在改）。多人共用一个仓库，规矩升一级：<b>先 pull，再 push</b>。</p>
+<pre class="codeblk">动手前 → git pull   <span class="c"># 先拿别人最新的，基于最新版改</span>
+改完   → git add / commit
+推之前 → git pull   <span class="c"># 万一这期间别人推了，先合并</span>
+       → git push</pre>
+<ul class="points">
+<li><b>push 被拒</b>（报 <code>non-fast-forward / rejected</code>）= 云端已比你新 → 先 <code>git pull</code> 合并，再 push（最常见）。</li>
+<li><b>冲突 conflict</b>：你和别人改了<b>同一处</b> → git 在文件里标出两段，你手动选保留哪段、改好，再 commit。</li>
+<li>推之前<b>先 <code>git status</code> 看清要提交啥，别 <code>git add -A</code> 一股脑全加</b>（容易把不该提交/不该公开的东西也带上去）。</li>
+</ul>
+<table style="margin-top:10px"><thead><tr><th>协作模式</th><th>怎么做</th><th>适合</th></tr></thead><tbody>
+<tr><td>简单版</td><td>都在 main 上，但严格"先拉后推"</td><td>2-3 人</td></tr>
+<tr><td>正规版</td><td>每人开自己<b>分支</b> → 发 <b>Pull Request(PR)</b> → review 后合并 main</td><td>多人 / 长期 / 要稳</td></tr>
+</tbody></table>
+<div class="key" style="margin-top:10px">🔑 一个人：改完 push 就行；<b>多人：push 前先 pull</b>，否则会冲突 / 覆盖别人。</div></div>
+<div class="sec"><h2>⑤ 小结</h2>
+<div class="recap"><span class="chip">Git=版本时光机</span><span class="chip">add→commit→push</span><span class="chip">分支=平行开发线</span><span class="chip">多人：先拉后推</span></div>
+<div class="memo">🧠 记忆点：commit 是存档，push 是上云；<b>多人改 → push 前先 pull</b></div></div>
 <div class="nav">上一模块 ← <a href="lesson-07-7.html">7.7 IT 交涉</a>　|　下一课 → <a href="lesson-08-2.html">8.2 依赖·配置·密钥</a>　|　<a href="index.html">📚 目录</a></div>
 </main></body></html>
