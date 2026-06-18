@@ -1,0 +1,23 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>第 2.3 课 · 列表·字典</title><link rel="stylesheet" href="lesson.css"></head><body>
+<header><div class="crumb">模块 2 · Python 编程基础 ｜ 第 3 课</div><h1>2.3　列表 与 字典（项目里到处都是）</h1><p>本课目标：会用两种最常用的"装一堆东西"的容器。</p></header>
+<main>
+<div class="sec"><h2>① 列表 = 一排有序的盒子</h2>
+<p>列表用 <code>[ ]</code>，里面按顺序放多个东西，用"第几个"取（从 0 数起）。</p>
+<pre class="codeblk">months = ["2026-05", "2026-06", "2026-07"]
+print(months[0])   <span class="c"># 第 0 个 → 2026-05</span>
+print(len(months)) <span class="c"># 一共几个 → 3</span></pre></div>
+<div class="sec"><h2>② 字典 = 带标签的盒子</h2>
+<p>字典用 <code>{ }</code>，每份数据有个"标签(键)"，用标签取，不靠顺序。</p>
+<pre class="codeblk">person = {"姓名": "张三", "出勤": 22}
+print(person["姓名"])  <span class="c"># 用标签取 → 张三</span></pre>
+<div class="key">🔑 列表按"第几个"取，字典按"叫什么"取。</div></div>
+<div class="sec"><h2>③ 在我们项目里</h2><div class="proj">
+<code>results = {}</code> 然后 <code>results[姓名] = 核对结果</code> —— 字典：用姓名当标签存每个人的结果。<br>
+<code>MONTHLY_COLS = {"姓名":0, "出勤":2, ...}</code> —— 字典：列名→第几列。<br>
+<code>rows = [...]</code> 一行行结果 —— 列表：按顺序排。
+</div></div>
+<div class="sec"><h2>④ 小结</h2>
+<div class="recap"><span class="chip">列表 [ ] 有序，按位置取</span><span class="chip">字典 { } 带标签，按键取</span><span class="chip">len() 看有几个</span></div>
+<div class="memo">🧠 记忆点：[ ]排队（看第几个）、{ }贴标签（看叫什么）</div></div>
+<div class="nav">上一课 ← <a href="lesson-02-2.html">2.2 变量</a>　|　下一课 → <a href="lesson-02-4.html">2.4 条件·循环</a>　|　<a href="index.html">📚 目录</a></div>
+</main></body></html>

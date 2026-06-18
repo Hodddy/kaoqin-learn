@@ -1,0 +1,26 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>第 6.3 课 · 实战加历史记录</title><link rel="stylesheet" href="lesson.css"></head><body>
+<header><div class="crumb">模块 6 · 数据库与历史记录 ｜ 第 3 课（模块收官）</div><h1>6.3　实战：给项目加"保存历史核对结果"</h1><p>本课目标：把数据库用到我们项目上，实现界面预留的"历史记录"。</p></header>
+<main>
+<div class="sec"><h2>① 思路（三步）</h2>
+<ul class="points">
+<li><b>建表</b>：建一张 <code>history</code> 表，存：时间、客户、月份、总人数、OK 数、异常数、结果文件路径。</li>
+<li><b>每次核对完写一条</b>：在 <code>run_reconcile</code> 结束后 <code>INSERT</code> 一行。</li>
+<li><b>历史页查出来</b>：加个 <code>GET /api/history</code> 接口，<code>SELECT</code> 所有记录，前端"历史记录"页显示。</li>
+</ul></div>
+<div class="sec"><h2>② 代码骨架（SQLite）</h2>
+<pre class="codeblk">import sqlite3
+db = sqlite3.connect("history.db")
+db.execute("CREATE TABLE IF NOT EXISTS history(时间,客户,月份,OK,异常)")
+db.execute("INSERT INTO history VALUES(?,?,?,?,?)", (now,客户,月份,36,3))
+db.commit()
+rows = db.execute("SELECT * FROM history").fetchall()  <span class="c"># 查出来</span></pre></div>
+<div class="sec"><h2>③ 跟我们项目怎么接</h2><div class="proj">
+界面左边那个灰色的"🕘 历史记录"占位，就是给这个功能预留的。<br>
+做完之后：每次核对自动留痕，点"历史记录"能看到过去所有批次、还能重新下载——项目就从"算完即走"升级成"有记忆"了。
+</div></div>
+<div class="sec"><h2>④ 小结</h2>
+<div class="recap"><span class="chip">建表→每次INSERT→历史页SELECT</span><span class="chip">SQLite 一个文件</span><span class="chip">让项目"有记忆"</span></div>
+<div class="memo">🧠 记忆点：建表 → 存一条 → 查出来，历史记录就成了</div></div>
+<div class="sec"><div class="done">🎉 模块 6 学完！你已经懂"让项目记住东西"的全套思路。</div></div>
+<div class="nav">上一课 ← <a href="lesson-06-2.html">6.2 SQL·SQLite</a>　|　下一模块 → <a href="lesson-07-1.html">7.1 本机vs服务器</a>　|　<a href="index.html">📚 目录</a></div>
+</main></body></html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>第 7.4 课 · 网络·端口·防火墙·VPN</title><link rel="stylesheet" href="lesson.css"></head><body>
+<header><div class="crumb">模块 7 · 企业级部署（★主目标）｜ 第 4 课</div><h1>7.4　网络：内网 / 公网、端口、防火墙、白名单、VPN</h1><p>本课目标：搞懂公司网络里"谁能访问到你的服务"这件事。</p></header>
+<main>
+<div class="sec"><h2>① 内网 vs 公网</h2>
+<ul class="points">
+<li><b>内网（局域网）</b>：公司内部网络，只有公司里的人能访问（如 <code>192.168.x.x</code>、<code>10.x.x.x</code>）。</li>
+<li><b>公网</b>：整个互联网都能访问。对外服务才需要，且风险更高。</li>
+<li>大多数公司内部系统<b>只放内网</b>，更安全。你的考勤系统很可能就是内网用。</li>
+</ul></div>
+<div class="sec"><h2>② 防火墙 + 白名单 = 门卫</h2>
+<p><b>防火墙</b>默认把端口都关着；要让别人访问 8000，得"放行 8000"。<b>白名单</b>=只允许某些 IP/网段进来（比如只许公司办公网段）。这些通常 IT 管。</p>
+<div class="key">🔑 服务跑起来 ≠ 别人能连上——还得防火墙"放行端口"。这是新手最常卡的点。</div></div>
+<div class="sec"><h2>③ VPN：从外面"进到内网"</h2><div class="proj">
+员工在家想用公司内网系统，就连 <b>VPN</b>——相当于"远程拉一根线进公司内网"，连上后就像坐在公司里。<br>
+所以你的系统可以"只放内网 + 员工靠 VPN 远程用"，既方便又安全，IT 通常乐意这么配。
+</div></div>
+<div class="sec"><h2>④ 小结</h2>
+<div class="recap"><span class="chip">内网=公司内部</span><span class="chip">公网=全网</span><span class="chip">防火墙放行端口</span><span class="chip">白名单限IP</span><span class="chip">VPN远程进内网</span></div>
+<div class="memo">🧠 记忆点：跑起来还得"放行端口"；内网+VPN 往往最稳妥</div></div>
+<div class="nav">上一课 ← <a href="lesson-07-3.html">7.3 Nginx+HTTPS</a>　|　下一课 → <a href="lesson-07-5.html">7.5 安全与鉴权</a>　|　<a href="index.html">📚 目录</a></div>
+</main></body></html>

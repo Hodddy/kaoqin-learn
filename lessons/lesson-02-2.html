@@ -1,0 +1,29 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>第 2.2 课 · 变量·数字·字符串·布尔</title><link rel="stylesheet" href="lesson.css"></head><body>
+<header><div class="crumb">模块 2 · Python 编程基础 ｜ 第 2 课</div><h1>2.2　变量、数字、字符串、布尔</h1><p>本课目标：会用"变量"存东西，认识最基本的几种数据。</p></header>
+<main>
+<div class="sec"><h2>① 变量 = 贴了名字的盒子</h2>
+<p>变量就是给一份数据起个名字，方便反复用。等号 <code>=</code> 是"放进盒子"，不是数学的"相等"。</p>
+<pre class="codeblk">name = "张三"      <span class="c"># 盒子 name 里放了文字 张三</span>
+age  = 25         <span class="c"># 盒子 age 里放了数字 25</span>
+print(name, age)  <span class="c"># 显示：张三 25</span></pre>
+<div class="key">🔑 <code>名字 = 值</code> ：把右边的东西，装进左边这个名字的盒子。</div></div>
+<div class="sec"><h2>② 四种最基本的数据</h2>
+<table><thead><tr><th>类型</th><th>是什么</th><th>例子</th></tr></thead><tbody>
+<tr><td>整数 int</td><td>不带小数的数</td><td><code>25</code>、<code>0</code></td></tr>
+<tr><td>小数 float</td><td>带小数点的数</td><td><code>0.3</code>、<code>18.5</code></td></tr>
+<tr><td>字符串 str</td><td>文字（必须用引号包起来）</td><td><code>"张三"</code>、<code>"2026-05"</code></td></tr>
+<tr><td>布尔 bool</td><td>真 / 假（只有两个值）</td><td><code>True</code>、<code>False</code></td></tr>
+</tbody></table></div>
+<div class="sec"><h2>③ 在我们项目里</h2><div class="proj">
+<code>TOL = 0.3</code> —— 一个小数变量，表示"容差 0.3 天"。<br>
+<code>name = clean_name(row[0])</code> —— 字符串变量，存清洗后的姓名。<br>
+<code>passed = True</code>（或 False）—— 布尔变量，表示这个人核对"过没过"。
+</div></div>
+<div class="sec"><h2>④ 动手 & 小结</h2>
+<div class="do"><h3>✍️ 动手</h3><ul><li>打开 <code>learn\hello.py</code>，在最上面加一行：<code>my_name = "你的名字"</code></li>
+<li>再加一行：<code>print("我是", my_name)</code>，保存后重新运行，看它显示出来。</li></ul></div>
+<p style="margin:14px 0 6px;font-weight:700">✅ 小结</p>
+<div class="recap"><span class="chip">变量=贴名字的盒子</span><span class="chip">= 是"放进去"</span><span class="chip">数字/字符串(带引号)/布尔(真假)</span></div>
+<div class="memo">🧠 记忆点：变量是盒子，文字要加引号，真假就 True/False</div></div>
+<div class="nav">上一课 ← <a href="lesson-02-1.html">2.1 Python+uv</a>　|　下一课 → <a href="lesson-02-3.html">2.3 列表·字典</a>　|　<a href="index.html">📚 目录</a></div>
+</main></body></html>

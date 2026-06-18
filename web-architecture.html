@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>考勤核对系统 · 架构与物理拓扑</title>
+<style>
+  :root{
+    --ink:#1f2330;--ink-2:#586074;--ink-3:#98a0b0;--bg:#eef0f4;--card:#fff;--line:#e3e6ec;
+    --fe:#2563eb;--be:#4f46e5;--svc:#7c3aed;--core:#0d9488;--ok:#16a34a;--warn:#d97706;--err:#dc2626;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,"Segoe UI","Microsoft YaHei",Roboto,sans-serif;font-size:14px;line-height:1.55;}
+  header{background:#fff;border-bottom:1px solid var(--line);padding:18px 28px;display:flex;align-items:center;gap:12px;}
+  .logo{width:34px;height:34px;border-radius:9px;color:#fff;font-size:17px;
+    background:linear-gradient(135deg,var(--be),var(--svc));display:flex;align-items:center;justify-content:center;}
+  header h1{font-size:18px;margin:0;font-weight:680;}
+  header .sub{color:var(--ink-3);font-size:12px;}
+  main{max-width:1000px;margin:0 auto;padding:24px 24px 70px;}
+  h2{font-size:16px;margin:30px 0 4px;display:flex;align-items:center;gap:8px;}
+  h2 .n{width:24px;height:24px;border-radius:7px;background:var(--be);color:#fff;font-size:13px;
+    display:inline-flex;align-items:center;justify-content:center;font-weight:700;}
+  .desc{color:var(--ink-2);margin:0 0 14px 32px;font-size:13px;}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;
+    box-shadow:0 1px 3px rgba(16,24,40,.05);margin-bottom:14px;}
+  .cap{font-weight:650;font-size:13px;margin:0 0 12px;display:flex;align-items:center;gap:8px;}
+  .cap .dot{width:9px;height:9px;border-radius:50%;}
+
+  /* 整体架构：一行三块 */
+  .arch{display:flex;align-items:center;justify-content:center;gap:0;flex-wrap:wrap;}
+  .blk{flex:1;min-width:180px;border-radius:12px;padding:16px;text-align:center;border:1.5px solid;}
+  .blk .ic{font-size:26px;} .blk .t{font-weight:700;margin-top:6px;}
+  .blk .s{font-size:12px;color:var(--ink-2);margin-top:4px;}
+  .blk.fe{border-color:var(--fe);background:#eff6ff;} .blk.fe .t{color:var(--fe);}
+  .blk.be{border-color:var(--be);background:#eef2ff;} .blk.be .t{color:var(--be);}
+  .blk.core{border-color:var(--core);background:#effdfa;} .blk.core .t{color:var(--core);}
+  .between{padding:0 12px;text-align:center;color:var(--ink-3);font-size:11px;white-space:nowrap;}
+  .between .ar{font-size:22px;color:var(--be);line-height:1;}
+  .archnote{margin-top:14px;text-align:center;font-size:12px;color:var(--svc);
+    background:#f5f3ff;border:1px dashed var(--svc);border-radius:10px;padding:8px;}
+  svg{width:100%;height:auto;display:block;}
+  @media(max-width:720px){.arch{flex-direction:column;}.between .ar{transform:rotate(90deg);}}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">勤</div>
+  <div>
+    <h1>考勤核对系统 · 架构与物理拓扑</h1>
+    <div class="sub">Web v1.0 · 整体架构 + 三种物理部署</div>
+  </div>
+</header>
+<main>
+
+  <!-- 1. 整体架构（极简） -->
+  <h2><span class="n">1</span>整体架构</h2>
+  <p class="desc">三块、一条线就能说清：浏览器负责看，Web 服务负责接，核心负责算。</p>
+  <div class="panel">
+    <div class="arch">
+      <div class="blk fe"><div class="ic">🌐</div><div class="t">浏览器前端</div><div class="s">上传文件 · 看结果 · 下载</div></div>
+      <div class="between"><div class="ar">→</div>HTTP</div>
+      <div class="blk be"><div class="ic">⚙️</div><div class="t">Web 服务</div><div class="s">FastAPI · 收发文件 · 编排</div></div>
+      <div class="between"><div class="ar">→</div>复用</div>
+      <div class="blk core"><div class="ic">📊</div><div class="t">对账核心</div><div class="s">core + clients · 所有计算</div></div>
+    </div>
+    <div class="archnote">⟲ 桌面版（EXE）与 Web 版共用同一个「对账核心」，只是外壳不同</div>
+  </div>
+
+  <!-- 2. 物理拓扑 -->
+  <h2><span class="n">2</span>物理拓扑（三种部署）</h2>
+  <p class="desc">同一套程序，按需选一种跑法。下面是每种的设备与网络连接。</p>
+
+  <!-- 2.1 本机 -->
+  <div class="panel">
+    <div class="cap"><span class="dot" style="background:var(--ok)"></span>方式一 · 本机自用（一台电脑，自己用）</div>
+    <svg viewBox="0 0 760 210" role="img">
+      <rect x="30" y="28" width="700" height="150" rx="14" fill="#f7faff" stroke="#cdd6ea" stroke-width="1.5" stroke-dasharray="6 5"/>
+      <text x="48" y="50" font-size="13" fill="#586074">🖥️ 同一台电脑</text>
+      <!-- 浏览器 -->
+      <rect x="80" y="78" width="240" height="78" rx="12" fill="#eff6ff" stroke="#2563eb" stroke-width="1.6"/>
+      <text x="200" y="112" font-size="26" text-anchor="middle">🌐</text>
+      <text x="200" y="140" font-size="14" font-weight="700" fill="#2563eb" text-anchor="middle">浏览器</text>
+      <!-- 服务 -->
+      <rect x="440" y="78" width="240" height="78" rx="12" fill="#eef2ff" stroke="#4f46e5" stroke-width="1.6"/>
+      <text x="560" y="110" font-size="24" text-anchor="middle">⚙️</text>
+      <text x="560" y="135" font-size="14" font-weight="700" fill="#4f46e5" text-anchor="middle">Web 服务 (uvicorn)</text>
+      <!-- 双向连线 -->
+      <line x1="320" y1="117" x2="440" y2="117" stroke="#4f46e5" stroke-width="2"/>
+      <path d="M332 111l-12 6 12 6" fill="none" stroke="#4f46e5" stroke-width="2"/>
+      <path d="M428 111l12 6-12 6" fill="none" stroke="#4f46e5" stroke-width="2"/>
+      <text x="380" y="104" font-size="12" fill="#586074" text-anchor="middle">127.0.0.1:8000</text>
+      <text x="380" y="138" font-size="11" fill="#98a0b0" text-anchor="middle">本机回环</text>
+    </svg>
+    <p style="margin:4px 0 0 2px;font-size:12px;color:var(--ink-3)">双击桌面「启动考勤核对Web.bat」→ 浏览器与服务都在这台机器上，只有自己能访问。</p>
+  </div>
+
+  <!-- 2.2 局域网 -->
+  <div class="panel">
+    <div class="cap"><span class="dot" style="background:var(--warn)"></span>方式二 · 局域网共享（一台当服务器，同事/手机一起用）</div>
+    <svg viewBox="0 0 800 340" role="img">
+      <!-- 客户端 -->
+      <g>
+        <rect x="60" y="24" width="170" height="66" rx="11" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+        <text x="145" y="55" font-size="22" text-anchor="middle">💻</text>
+        <text x="145" y="78" font-size="12.5" fill="#2563eb" text-anchor="middle" font-weight="600">同事电脑</text>
+
+        <rect x="295" y="24" width="170" height="66" rx="11" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+        <text x="380" y="55" font-size="22" text-anchor="middle">📱</text>
+        <text x="380" y="78" font-size="12.5" fill="#2563eb" text-anchor="middle" font-weight="600">手机</text>
+
+        <rect x="530" y="24" width="170" height="66" rx="11" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+        <text x="615" y="55" font-size="22" text-anchor="middle">💻</text>
+        <text x="615" y="78" font-size="12.5" fill="#2563eb" text-anchor="middle" font-weight="600">同事电脑</text>
+      </g>
+      <!-- 连到局域网 -->
+      <line x1="145" y1="90" x2="290" y2="150" stroke="#0d9488" stroke-width="1.8"/>
+      <line x1="380" y1="90" x2="380" y2="150" stroke="#0d9488" stroke-width="1.8"/>
+      <line x1="615" y1="90" x2="470" y2="150" stroke="#0d9488" stroke-width="1.8"/>
+      <!-- 局域网条 -->
+      <rect x="200" y="150" width="360" height="54" rx="12" fill="#effdfa" stroke="#0d9488" stroke-width="1.8"/>
+      <text x="380" y="174" font-size="22" text-anchor="middle">🖧</text>
+      <text x="380" y="195" font-size="12.5" fill="#0d9488" text-anchor="middle" font-weight="700">公司局域网 · 路由器 / 交换机</text>
+      <!-- 网到服务器 -->
+      <line x1="380" y1="204" x2="380" y2="256" stroke="#4f46e5" stroke-width="2"/>
+      <path d="M374 244l6 12 6-12" fill="none" stroke="#4f46e5" stroke-width="2"/>
+      <!-- 服务器 -->
+      <rect x="230" y="256" width="300" height="64" rx="12" fill="#eef2ff" stroke="#4f46e5" stroke-width="1.8"/>
+      <text x="290" y="294" font-size="24" text-anchor="middle">🖥️</text>
+      <text x="420" y="284" font-size="13.5" fill="#4f46e5" text-anchor="middle" font-weight="700">服务器电脑</text>
+      <text x="420" y="304" font-size="11.5" fill="#586074" text-anchor="middle" font-family="Consolas,monospace">uvicorn --host 0.0.0.0</text>
+      <!-- 访问地址标 -->
+      <text x="566" y="120" font-size="11.5" fill="#586074" font-family="Consolas,monospace">http://192.168.1.20:8000</text>
+    </svg>
+    <p style="margin:4px 0 0 2px;font-size:12px;color:var(--ink-3)">服务器绑 <code>0.0.0.0</code> 并放行防火墙 8000；同网内输入「服务器 IP:8000」即可访问。<b style="color:var(--err)">无登录，仅限可信内网。</b></p>
+  </div>
+
+  <!-- 2.3 生产 -->
+  <div class="panel">
+    <div class="cap"><span class="dot" style="background:var(--err)"></span>方式三 · 正式部署（对外/上服务器，加防护）</div>
+    <svg viewBox="0 0 760 320" role="img">
+      <!-- 用户 -->
+      <rect x="280" y="20" width="200" height="58" rx="12" fill="#f3f4f8" stroke="#98a0b0" stroke-width="1.5"/>
+      <text x="330" y="55" font-size="22" text-anchor="middle">🌍</text>
+      <text x="410" y="54" font-size="13" fill="#586074" text-anchor="middle" font-weight="600">公网用户</text>
+      <line x1="380" y1="78" x2="380" y2="120" stroke="#7c3aed" stroke-width="2"/>
+      <path d="M374 108l6 12 6-12" fill="none" stroke="#7c3aed" stroke-width="2"/>
+      <text x="396" y="103" font-size="11.5" fill="#7c3aed" font-family="Consolas,monospace">HTTPS / 443</text>
+      <!-- 反代 -->
+      <rect x="250" y="120" width="260" height="62" rx="12" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.7"/>
+      <text x="305" y="158" font-size="22" text-anchor="middle">🛡️</text>
+      <text x="400" y="148" font-size="13" fill="#7c3aed" text-anchor="middle" font-weight="700">反向代理</text>
+      <text x="400" y="167" font-size="11.5" fill="#586074" text-anchor="middle">Nginx / Caddy · TLS</text>
+      <line x1="380" y1="182" x2="380" y2="224" stroke="#4f46e5" stroke-width="2"/>
+      <path d="M374 212l6 12 6-12" fill="none" stroke="#4f46e5" stroke-width="2"/>
+      <!-- 应用服务器 -->
+      <rect x="250" y="224" width="260" height="66" rx="12" fill="#eef2ff" stroke="#4f46e5" stroke-width="1.8"/>
+      <text x="300" y="263" font-size="24" text-anchor="middle">🖥️</text>
+      <text x="400" y="253" font-size="13" fill="#4f46e5" text-anchor="middle" font-weight="700">应用服务器</text>
+      <text x="400" y="272" font-size="11.5" fill="#586074" text-anchor="middle" font-family="Consolas,monospace">uvicorn · systemd 守护</text>
+      <!-- 右侧待补 -->
+      <rect x="548" y="150" width="190" height="120" rx="12" fill="#fff8ec" stroke="#d97706" stroke-width="1.4" stroke-dasharray="5 4"/>
+      <text x="643" y="172" font-size="12" fill="#d97706" text-anchor="middle" font-weight="700">上线前需补</text>
+      <text x="643" y="196" font-size="11.5" fill="#92400e" text-anchor="middle">· 登录鉴权</text>
+      <text x="643" y="216" font-size="11.5" fill="#92400e" text-anchor="middle">· 临时文件清理</text>
+      <text x="643" y="236" font-size="11.5" fill="#92400e" text-anchor="middle">· 多 worker</text>
+      <text x="643" y="252" font-size="11.5" fill="#92400e" text-anchor="middle">  令牌共享存储</text>
+    </svg>
+    <p style="margin:4px 0 0 2px;font-size:12px;color:var(--ink-3)">前置反代做 HTTPS 与转发，应用进程常驻；当前为 MVP，对外前需补齐黄框三项。</p>
+  </div>
+
+</main>
+</body>
+</html>

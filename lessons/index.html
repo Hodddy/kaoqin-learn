@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>考勤项目 · 学习中心（总目录）</title>
+<style>
+  :root{--ink:#1f2330;--ink2:#586074;--ink3:#9aa0ae;--bg:#f4f6fa;--card:#fff;--line:#e6e9f0;--indigo:#4f46e5;}
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,"Segoe UI","Microsoft YaHei",Roboto,sans-serif;font-size:14.5px;line-height:1.6;}
+  header{background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;padding:26px 28px;}
+  header h1{margin:0;font-size:21px;}
+  header p{margin:8px 0 0;opacity:.92;font-size:13px;}
+  .prog{margin-top:12px;background:rgba(255,255,255,.18);border-radius:20px;padding:6px 14px;display:inline-block;font-size:13px;font-weight:700;}
+  main{max-width:940px;margin:0 auto;padding:22px;}
+  .quick{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:20px;}
+  .qcard{display:block;text-decoration:none;color:inherit;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;box-shadow:0 1px 3px rgba(16,24,40,.04);}
+  .qcard:hover{border-color:var(--indigo);}
+  .qcard .e{font-size:22px;} .qcard .t{font-weight:700;margin-top:4px;} .qcard .d{font-size:12px;color:var(--ink2);}
+  @media(max-width:680px){.quick{grid-template-columns:1fr;}}
+  .mod{background:var(--card);border:1px solid var(--line);border-left:6px solid;border-radius:14px;padding:14px 18px 10px;margin-bottom:14px;box-shadow:0 1px 3px rgba(16,24,40,.04);}
+  .mod h2{margin:0 0 4px;font-size:16px;display:flex;align-items:center;gap:9px;flex-wrap:wrap;}
+  .mod .badge{width:28px;height:28px;border-radius:8px;color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;}
+  .mod .sub{color:var(--ink2);font-size:12.5px;margin:0 0 10px;}
+  .ls{display:grid;grid-template-columns:1fr 1fr;gap:6px 18px;}
+  .ls a{display:flex;align-items:center;gap:8px;padding:5px 8px;border-radius:8px;text-decoration:none;font-size:13.5px;color:var(--ink);}
+  .ls a:hover{background:#eef2ff;}
+  .ls .id{font-weight:700;color:var(--ink3);min-width:30px;font-variant-numeric:tabular-nums;}
+  .st{font-size:11px;font-weight:700;padding:1px 7px;border-radius:20px;margin-left:auto;background:#f0fdf4;color:#16a34a;}
+  @media(max-width:680px){.ls{grid-template-columns:1fr;}}
+  .m1{border-left-color:#2563eb;} .m1 .badge{background:#2563eb;}
+  .m2{border-left-color:#0891b2;} .m2 .badge{background:#0891b2;}
+  .m3{border-left-color:#0d9488;} .m3 .badge{background:#0d9488;}
+  .m4{border-left-color:#16a34a;} .m4 .badge{background:#16a34a;}
+  .m5{border-left-color:#7c3aed;} .m5 .badge{background:#7c3aed;}
+  .m6{border-left-color:#db2777;} .m6 .badge{background:#db2777;}
+  .m7{border-left-color:#d97706;} .m7 .badge{background:#d97706;}
+  .m8{border-left-color:#475569;} .m8 .badge{background:#475569;}
+</style>
+</head>
+<body>
+<header>
+  <h1>🎓 考勤项目 · 学习中心</h1>
+  <p>从零到能独立写 + 在大公司部署。总入口：路线图、视频资源、全部 38 课课件都在这。</p>
+  <div class="prog">课件进度：38 / 38 全部生成 ✓</div>
+</header>
+<main>
+
+  <a href="deploy-checklist.html" style="display:block;text-decoration:none;background:linear-gradient(135deg,#fff7ed,#fff);border:1px solid #fed7aa;border-left:6px solid #d97706;border-radius:14px;padding:14px 18px;margin-bottom:16px;box-shadow:0 1px 3px rgba(16,24,40,.04);">
+    <div style="font-weight:700;color:#b45309;font-size:15px;">🚀 上线清单：从现在到"公司服务器人人能访问"</div>
+    <div style="color:#92400e;font-size:12.5px;margin-top:3px;">每一步做什么 + 对应哪课 + 你做到哪了（可勾选打卡）。想部署就看这张。</div>
+  </a>
+
+  <div class="quick">
+    <a class="qcard" href="../learning-roadmap.html"><div class="e">🗺️</div><div class="t">学习路线图</div><div class="d">8 模块全景</div></a>
+    <a class="qcard" href="resources.html"><div class="e">🎬</div><div class="t">视频资源（可打卡）</div><div class="d">B站/YouTube 推荐</div></a>
+    <a class="qcard" href="../web-explained.html"><div class="e">📘</div><div class="t">Web 入门图</div><div class="d">餐厅比喻看懂 HTTP</div></a>
+    <a class="qcard" href="it-glossary.html"><div class="e">🗣️</div><div class="t">跟 IT 对话·名词速查</div><div class="d">端口/服务器/VPN/SSO…</div></a>
+    <a class="qcard" href="handoff.html"><div class="e">📋</div><div class="t">离职交接清单</div><div class="d">给接手人，系统不依赖你</div></a>
+  </div>
+
+  <div class="mod m1">
+    <h2><span class="badge">1</span>计算机与网络入门</h2>
+    <div class="sub">打地基：电脑怎么干活、机器怎么对话、HTTP 讲透。</div>
+    <div class="ls">
+      <a href="lesson-01-1.html"><span class="id">1.1</span>程序、文件、运行<span class="st">✓</span></a>
+      <a href="lesson-01-2.html"><span class="id">1.2</span>客户端 vs 服务器<span class="st">✓</span></a>
+      <a href="lesson-01-3.html"><span class="id">1.3</span>IP·端口·域名·DNS<span class="st">✓</span></a>
+      <a href="lesson-01-4.html"><span class="id">1.4</span>HTTP 深入<span class="st">✓</span></a>
+    </div>
+  </div>
+
+  <div class="mod m2">
+    <h2><span class="badge">2</span>Python 编程基础</h2>
+    <div class="sub">从零会写代码，每点都用项目真实片段练。</div>
+    <div class="ls">
+      <a href="lesson-02-1.html"><span class="id">2.1</span>Python + uv 安装运行<span class="st">✓</span></a>
+      <a href="lesson-02-2.html"><span class="id">2.2</span>变量·数字·字符串<span class="st">✓</span></a>
+      <a href="lesson-02-3.html"><span class="id">2.3</span>列表·字典<span class="st">✓</span></a>
+      <a href="lesson-02-4.html"><span class="id">2.4</span>条件·循环<span class="st">✓</span></a>
+      <a href="lesson-02-5.html"><span class="id">2.5</span>函数·模块·import<span class="st">✓</span></a>
+      <a href="lesson-02-6.html"><span class="id">2.6</span>读写文件·操作 Excel<span class="st">✓</span></a>
+      <a href="lesson-02-7.html"><span class="id">2.7</span>看懂报错·调试<span class="st">✓</span></a>
+    </div>
+  </div>
+
+  <div class="mod m3">
+    <h2><span class="badge">3</span>读懂并能写"核对核心"</h2>
+    <div class="sub">吃透项目最值钱的业务逻辑。</div>
+    <div class="ls">
+      <a href="lesson-03-1.html"><span class="id">3.1</span>项目分层<span class="st">✓</span></a>
+      <a href="lesson-03-2.html"><span class="id">3.2</span>数据模型 dataclass<span class="st">✓</span></a>
+      <a href="lesson-03-3.html"><span class="id">3.3</span>解析数据·年月识别<span class="st">✓</span></a>
+      <a href="lesson-03-4.html"><span class="id">3.4</span>核对规则·罚款<span class="st">✓</span></a>
+      <a href="lesson-03-5.html"><span class="id">3.5</span>插件化扩展新客户<span class="st">✓</span></a>
+    </div>
+  </div>
+
+  <div class="mod m4">
+    <h2><span class="badge">4</span>做成 Web 后端（FastAPI）</h2>
+    <div class="sub">把核心包成网络服务。</div>
+    <div class="ls">
+      <a href="lesson-04-1.html"><span class="id">4.1</span>Web 框架·为什么 FastAPI<span class="st">✓</span></a>
+      <a href="lesson-04-2.html"><span class="id">4.2</span>第一个接口 GET<span class="st">✓</span></a>
+      <a href="lesson-04-3.html"><span class="id">4.3</span>文件上传 POST<span class="st">✓</span></a>
+      <a href="lesson-04-4.html"><span class="id">4.4</span>返回 JSON·下载·状态码<span class="st">✓</span></a>
+      <a href="lesson-04-5.html"><span class="id">4.5</span>复用服务层 run_reconcile<span class="st">✓</span></a>
+    </div>
+  </div>
+
+  <div class="mod m5">
+    <h2><span class="badge">5</span>前端三件套</h2>
+    <div class="sub">HTML/CSS/JS，把界面做出来连上接口。</div>
+    <div class="ls">
+      <a href="lesson-05-1.html"><span class="id">5.1</span>HTML·CSS·JS 各管什么<span class="st">✓</span></a>
+      <a href="lesson-05-2.html"><span class="id">5.2</span>表单·文件·按钮<span class="st">✓</span></a>
+      <a href="lesson-05-3.html"><span class="id">5.3</span>fetch 调接口·画表格<span class="st">✓</span></a>
+      <a href="lesson-05-4.html"><span class="id">5.4</span>样式与主题<span class="st">✓</span></a>
+    </div>
+  </div>
+
+  <div class="mod m6">
+    <h2><span class="badge">6</span>数据库与历史记录</h2>
+    <div class="sub">让项目能"记住东西"。</div>
+    <div class="ls">
+      <a href="lesson-06-1.html"><span class="id">6.1</span>数据库是什么·为什么<span class="st">✓</span></a>
+      <a href="lesson-06-2.html"><span class="id">6.2</span>SQL·SQLite 入门<span class="st">✓</span></a>
+      <a href="lesson-06-3.html"><span class="id">6.3</span>实战：加历史记录<span class="st">✓</span></a>
+    </div>
+  </div>
+
+  <div class="mod m7">
+    <h2><span class="badge">7</span>企业级部署 + 对接 IT　★ 主目标</h2>
+    <div class="sub">从"自己电脑能跑"到"大公司服务器稳定服务"。</div>
+    <div class="ls">
+      <a href="lesson-07-1.html"><span class="id">7.1</span>本机 vs 服务器<span class="st">✓</span></a>
+      <a href="lesson-07-2.html"><span class="id">7.2</span>常驻：systemd 守护<span class="st">✓</span></a>
+      <a href="lesson-07-3.html"><span class="id">7.3</span>Nginx 反代 + HTTPS<span class="st">✓</span></a>
+      <a href="lesson-07-4.html"><span class="id">7.4</span>网络·端口·防火墙·VPN<span class="st">✓</span></a>
+      <a href="lesson-07-5.html"><span class="id">7.5</span>安全与鉴权<span class="st">✓</span></a>
+      <a href="lesson-07-6.html"><span class="id">7.6</span>Docker 容器化<span class="st">✓</span></a>
+      <a href="lesson-07-7.html"><span class="id">7.7</span>与 IT 部门交涉清单<span class="st">✓</span></a>
+    </div>
+  </div>
+
+  <div class="mod m8">
+    <h2><span class="badge">8</span>工程化与长期维护</h2>
+    <div class="sub">专业、可协作、能长期跑。</div>
+    <div class="ls">
+      <a href="lesson-08-1.html"><span class="id">8.1</span>Git/GitHub 协作<span class="st">✓</span></a>
+      <a href="lesson-08-2.html"><span class="id">8.2</span>依赖·配置·密钥<span class="st">✓</span></a>
+      <a href="lesson-08-3.html"><span class="id">8.3</span>日志·监控·备份·上线检查<span class="st">✓</span></a>
+    </div>
+  </div>
+
+</main>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>第 4.2 课 · 第一个接口 GET</title><link rel="stylesheet" href="lesson.css"></head><body>
+<header><div class="crumb">模块 4 · 做成 Web 后端 ｜ 第 2 课</div><h1>4.2　写第一个接口：GET /api/clients</h1><p>本课目标：看懂一个最简单的"接口"是怎么写出来的。</p></header>
+<main>
+<div class="sec"><h2>① 接口 = 一个"窗口" + 一段处理</h2>
+<p>接口就是"某个地址收到请求时，跑哪段代码、回什么"。FastAPI 用 <b>装饰器</b> <code>@app.get(...)</code> 把"地址"和"函数"绑起来。</p>
+<pre class="codeblk">@app.get("/api/clients")     <span class="c"># 谁来 GET 这个地址</span>
+def api_clients():           <span class="c"># 就跑这个函数</span>
+    return [{"key":"client_a","display":"客户A"}]  <span class="c"># 回这个</span></pre>
+<div class="key">🔑 <code>@app.get("/地址")</code> 上面贴着，下面的函数就负责回应这个地址的 GET 请求。</div></div>
+<div class="sec"><h2>② return 的东西会自动变 JSON</h2>
+<p>你 return 一个列表/字典，FastAPI 自动转成 JSON 发回浏览器。浏览器前端再拿这个数据填下拉框。</p></div>
+<div class="sec"><h2>③ 在我们项目里</h2><div class="proj">
+<code>GET /api/clients</code> 就是这么写的，返回客户列表，驱动界面里"客户"下拉框。<br>
+前端用 <code>fetch('/api/clients')</code> 来调它（前端怎么调是模块 5）。
+</div></div>
+<div class="sec"><h2>④ 小结</h2>
+<div class="recap"><span class="chip">@app.get 绑地址</span><span class="chip">函数负责回应</span><span class="chip">return 自动变 JSON</span></div>
+<div class="memo">🧠 记忆点：装饰器绑地址，函数写回应，return 即响应</div></div>
+<div class="nav">上一课 ← <a href="lesson-04-1.html">4.1 Web框架</a>　|　下一课 → <a href="lesson-04-3.html">4.3 文件上传</a>　|　<a href="index.html">📚 目录</a></div>
+</main></body></html>

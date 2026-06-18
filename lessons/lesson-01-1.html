@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第 1.1 课 · 程序、文件、运行</title>
+<style>
+  :root{--ink:#1f2330;--ink2:#586074;--ink3:#9aa0ae;--bg:#f4f6fa;--card:#fff;--line:#e6e9f0;
+    --blue:#2563eb;--blue-s:#eff6ff;--indigo:#4f46e5;--indigo-s:#eef2ff;
+    --green:#16a34a;--green-s:#f0fdf4;--amber:#d97706;--amber-s:#fff8ec;--teal:#0d9488;--teal-s:#effdfa;}
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,"Segoe UI","Microsoft YaHei",Roboto,sans-serif;font-size:15px;line-height:1.75;}
+  header{background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;padding:24px 28px;}
+  .crumb{font-size:12px;opacity:.85;}
+  header h1{margin:4px 0 0;font-size:22px;}
+  header p{margin:8px 0 0;opacity:.92;font-size:13.5px;}
+  main{max-width:880px;margin:0 auto;padding:22px;}
+  .sec{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 24px;margin-bottom:16px;box-shadow:0 1px 3px rgba(16,24,40,.04);}
+  .sec h2{margin:0 0 14px;font-size:17px;display:flex;align-items:center;gap:9px;}
+  .sec h2 .ic{font-size:20px;}
+  .muted{color:var(--ink2);}
+  code{background:#f1f3f8;border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-size:13px;color:var(--ink);font-family:Consolas,monospace;}
+
+  .three{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;}
+  .word{border-radius:12px;padding:16px;text-align:center;border:1px solid;}
+  .word .e{font-size:34px;} .word .t{font-weight:800;margin:6px 0 4px;font-size:16px;} .word .d{font-size:13px;color:var(--ink2);}
+  .w1{background:var(--blue-s);border-color:#cfe0fb;} .w1 .t{color:var(--blue);}
+  .w2{background:var(--indigo-s);border-color:#d9defb;} .w2 .t{color:var(--indigo);}
+  .w3{background:var(--green-s);border-color:#c7eed3;} .w3 .t{color:var(--green);}
+  @media(max-width:640px){.three{grid-template-columns:1fr;}}
+
+  .keyline{background:#fffbeb;border:1px solid #fde68a;border-left:5px solid var(--amber);border-radius:10px;
+    padding:12px 16px;margin-top:14px;font-weight:700;color:#92400e;}
+  .keyline .k{color:var(--amber);}
+
+  /* 菜谱比喻 */
+  .recipe{display:flex;align-items:center;justify-content:space-around;text-align:center;gap:6px;flex-wrap:wrap;}
+  .recipe .node{flex:1;min-width:120px;}
+  .recipe .e{font-size:38px;} .recipe .lab{font-weight:700;margin-top:4px;} .recipe .sm{font-size:12.5px;color:var(--ink3);}
+  .recipe .arrow{flex:.5;min-width:50px;color:var(--indigo);font-size:22px;font-weight:700;}
+
+  table{width:100%;border-collapse:collapse;}
+  th{text-align:left;font-size:12px;color:var(--ink3);text-transform:uppercase;padding:8px 12px;border-bottom:1px solid var(--line);}
+  td{padding:9px 12px;border-bottom:1px solid #eef0f4;}
+  td .ext{font-family:Consolas,monospace;font-weight:700;color:var(--indigo);}
+
+  /* 躺着 vs 运行 */
+  .ba{display:grid;grid-template-columns:1fr 40px 1fr;gap:10px;align-items:center;}
+  .panel{border-radius:10px;overflow:hidden;border:1px solid var(--line);}
+  .panel .cap{padding:6px 12px;font-size:12.5px;font-weight:700;}
+  .file .cap{background:#eef0f4;color:var(--ink2);}
+  .term .cap{background:#1e2a3a;color:#9bd0a0;}
+  .panel pre{margin:0;padding:12px;font-family:Consolas,monospace;font-size:12.5px;line-height:1.6;white-space:pre-wrap;}
+  .file pre{background:#fafbfd;color:#37474f;}
+  .term pre{background:#1e2a3a;color:#a5d6a7;}
+  .ba .mid{text-align:center;color:var(--indigo);font-size:22px;font-weight:700;}
+  @media(max-width:640px){.ba{grid-template-columns:1fr;}.ba .mid{transform:rotate(90deg);}}
+
+  .proj .row{display:flex;gap:10px;align-items:baseline;padding:5px 0;border-bottom:1px dashed #eef0f4;}
+  .proj .row:last-child{border-bottom:none;}
+  .proj .fn{font-family:Consolas,monospace;font-size:13px;color:var(--ink);min-width:230px;}
+  .proj .tag{font-size:12px;font-weight:700;padding:1px 9px;border-radius:20px;}
+  .tg-prog{background:var(--indigo-s);color:var(--indigo);}
+  .tg-exe{background:var(--green-s);color:var(--green);}
+  .tg-web{background:#f5f3ff;color:#7c3aed;}
+  .tg-data{background:var(--amber-s);color:var(--amber);}
+
+  .do{background:var(--teal-s);border:1px solid #c3ece6;border-radius:12px;padding:14px 18px;}
+  .do h3{margin:0 0 8px;color:var(--teal);font-size:14px;}
+  .do ol{margin:0;padding-left:20px;color:var(--ink2);font-size:14px;}
+  .recap{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;}
+  .chip{background:#f1f3f8;border:1px solid var(--line);border-radius:20px;padding:5px 12px;font-size:13px;}
+  .memo{background:var(--indigo);color:#fff;border-radius:12px;padding:14px 18px;font-size:15px;font-weight:700;text-align:center;margin-top:14px;}
+</style>
+</head>
+<body>
+<header>
+  <div class="crumb">模块 1 · 计算机与网络入门　|　第 1 课</div>
+  <h1>1.1　程序、文件、"运行"到底是什么</h1>
+  <p>本课目标：分清"文件 / 程序 / 运行"三个词，并真正看懂"运行"是怎么回事。</p>
+</header>
+<main>
+
+  <div class="sec">
+    <h2><span class="ic">①</span>三个词，先分清</h2>
+    <div class="three">
+      <div class="word w1"><div class="e">📄</div><div class="t">文件 File</div><div class="d">电脑里存的一份东西，有名字、内容、类型（看后缀）。平时静静躺着不动。</div></div>
+      <div class="word w2"><div class="e">📜</div><div class="t">程序 Program</div><div class="d">一种特殊文件，里面是一步步的指令，用来指挥电脑干活（如 .py / .exe）。</div></div>
+      <div class="word w3"><div class="e">▶️</div><div class="t">运行 Run</div><div class="d">让电脑真的照指令去做，产生结果（弹窗、算数、生成文件…）。</div></div>
+    </div>
+    <div class="keyline"><span class="k">🔑 一句话：</span>文件是"躺着的东西"，运行是"让它动起来干活"。</div>
+  </div>
+
+  <div class="sec">
+    <h2><span class="ic">②</span>生活比喻：菜谱 🍳</h2>
+    <div class="recipe">
+      <div class="node"><div class="e">📜</div><div class="lab">菜谱</div><div class="sm">= 代码文件 .py</div></div>
+      <div class="arrow">→</div>
+      <div class="node"><div class="e">👨‍🍳</div><div class="lab">厨师</div><div class="sm">= python</div></div>
+      <div class="arrow">→</div>
+      <div class="node"><div class="e">🍜</div><div class="lab">上菜</div><div class="sm">= 运行结果</div></div>
+    </div>
+    <p class="muted" style="margin-top:12px">菜谱放抽屉里不会自动变出菜（文件躺着）；交给厨师照做，才有菜上桌（运行→结果）。<br>
+    所以 <code>.py</code> 自己不动，要交给 <code>python</code> 去跑——这就是我们总写 <code>uv run python xxx.py</code> 的原因（="让厨师照这张菜谱做"）。</p>
+  </div>
+
+  <div class="sec">
+    <h2><span class="ic">③</span>文件类型：看后缀认身份</h2>
+    <table>
+      <thead><tr><th style="width:120px">后缀</th><th>是什么</th></tr></thead>
+      <tbody>
+        <tr><td><span class="ext">.xlsx</span></td><td>Excel 表格（数据）</td></tr>
+        <tr><td><span class="ext">.html</span></td><td>网页</td></tr>
+        <tr><td><span class="ext">.py</span></td><td>Python 代码（程序 / 菜谱）</td></tr>
+        <tr><td><span class="ext">.exe</span></td><td>能直接双击运行的程序（成品）</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="sec">
+    <h2><span class="ic">④</span>"躺着" vs "运行"（你刚亲眼看过的演示）</h2>
+    <div class="ba">
+      <div class="panel file">
+        <div class="cap">📄 hello.py（文件躺着的样子）</div>
+        <pre>print("你好，我是一个程序，我被运行起来了！")
+print("1 + 1 =", 1 + 1)</pre>
+      </div>
+      <div class="mid">▶</div>
+      <div class="panel term">
+        <div class="cap">▶️ 运行后的结果</div>
+        <pre>你好，我是一个程序，我被运行起来了！
+1 + 1 = 2</pre>
+      </div>
+    </div>
+    <p class="muted" style="margin:12px 0 0">左边是文件本身（一份文字，不会动）；交给 python 运行后，右边才"动起来"产出结果。</p>
+  </div>
+
+  <div class="sec proj">
+    <h2><span class="ic">⑤</span>在我们项目里长什么样</h2>
+    <div class="row"><span class="fn">run_gui.py · web/server.py</span><span class="tag tg-prog">程序（菜谱 .py）</span></div>
+    <div class="row"><span class="fn">releases\考勤核对系统_v2.0.exe</span><span class="tag tg-exe">成品程序（双击即跑）</span></div>
+    <div class="row"><span class="fn">web\static\index.html</span><span class="tag tg-web">网页</span></div>
+    <div class="row"><span class="fn">2026年5月公司数据.xlsx</span><span class="tag tg-data">数据（不是程序）</span></div>
+    <p class="muted" style="margin:12px 0 0">你见过的"运行"：双击 .exe → 弹出核对窗口；我敲 <code>uv run python -m uvicorn …</code> → 起了 Web 服务。</p>
+  </div>
+
+  <div class="sec">
+    <h2><span class="ic">⑥</span>动手 & 小结</h2>
+    <div class="do">
+      <h3>✍️ 动手 2 分钟（只用鼠标，不敲命令）</h3>
+      <ol>
+        <li>打开你存放本项目的文件夹，进到里面的 <code>learn</code> 子目录，看到你的第一个程序文件 <code>hello.py</code>——它现在正"躺着"。</li>
+        <li>回到项目文件夹根目录，扫一眼里面的文件，心里给每个分类：程序(.py/.exe) / 网页(.html) / 数据(.xlsx)。</li>
+        <li>想亲手运行它？怎么用命令运行是 1.3 / 2.1 课的内容，到时手把手教，现在你已看过效果了。</li>
+      </ol>
+    </div>
+    <p style="margin:16px 0 6px;font-weight:700">✅ 本课小结</p>
+    <div class="recap">
+      <span class="chip">文件 = 躺着的东西（看后缀知类型）</span>
+      <span class="chip">程序 = 写着指令的特殊文件</span>
+      <span class="chip">运行 = 照指令做、出结果</span>
+      <span class="chip">.py 靠 python 跑；.exe 是成品</span>
+    </div>
+    <div class="memo">🧠 记忆点：菜谱(.py) → 厨师(python) → 上菜(运行结果)</div>
+  </div>
+
+  <p style="text-align:center;color:var(--ink3);font-size:13px">下一课 → 1.2　客户端 vs 服务器：谁请求、谁服务</p>
+
+</main>
+</body>
+</html>

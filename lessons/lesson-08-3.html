@@ -1,0 +1,24 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>第 8.3 课 · 日志·监控·备份·上线检查</title><link rel="stylesheet" href="lesson.css"></head><body>
+<header><div class="crumb">模块 8 · 工程化与长期维护 ｜ 第 3 课（全课程收官）</div><h1>8.3　日志、监控、备份、上线检查单</h1><p>本课目标：让上线的系统"出了事查得到、平时盯得住、坏了有后路"。</p></header>
+<main>
+<div class="sec"><h2>① 日志：给程序留"行车记录仪"</h2>
+<p>程序运行时把关键步骤、错误记下来（写进日志文件）。出问题时翻日志就能定位——比当场抓瞎强一万倍。我们 Web 版返回的"运行日志"就是雏形。</p></div>
+<div class="sec"><h2>② 监控：平时盯着"还活着吗"</h2>
+<p>简单的：定时访问一下首页/健康接口，挂了就告警（邮件/钉钉）。让你<b>先于用户</b>发现服务挂了。</p></div>
+<div class="sec"><h2>③ 备份：坏了有后路</h2>
+<p>数据库、重要结果文件<b>定期备份</b>。服务器坏盘、误删，有备份就能恢复。没备份=一夜回到解放前。</p></div>
+<div class="sec"><h2>④ 上线检查单（部署前对一遍）</h2>
+<ul class="points">
+<li>☐ 服务能开机自启、崩溃自动重启（systemd）</li>
+<li>☐ HTTPS 已开、证书有效</li>
+<li>☐ 防火墙/白名单已配，访问范围对</li>
+<li>☐ 加了登录鉴权，密钥没进代码</li>
+<li>☐ 有日志、有备份、有人能联系</li>
+<li>☐ 真实数据跑通一遍，结果正确</li>
+</ul></div>
+<div class="sec"><h2>⑤ 小结</h2>
+<div class="recap"><span class="chip">日志=行车记录仪</span><span class="chip">监控=先于用户发现</span><span class="chip">备份=有后路</span><span class="chip">上线照检查单</span></div>
+<div class="memo">🧠 记忆点：留痕(日志)、盯着(监控)、留后路(备份)、按单上线</div></div>
+<div class="sec"><div class="done">🎉🎉 全部 8 个模块、33 课学完！<br>从"什么都不懂"到"能读懂、能改、能部署、能跟 IT 谈"——你已经走完整条路了。<br>接下来就是动手把每个模块在真实项目上练一遍。</div></div>
+<div class="nav">上一课 ← <a href="lesson-08-2.html">8.2 依赖·配置·密钥</a>　|　<a href="index.html">📚 回到目录</a></div>
+</main></body></html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第 1.4 课 · HTTP 深入</title>
+<style>
+  :root{--ink:#1f2330;--ink2:#586074;--ink3:#9aa0ae;--bg:#f4f6fa;--card:#fff;--line:#e6e9f0;
+    --blue:#2563eb;--blue-s:#eff6ff;--indigo:#4f46e5;--green:#16a34a;--green-s:#f0fdf4;--amber:#d97706;--red:#dc2626;--teal:#0d9488;--teal-s:#effdfa;}
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI","Microsoft YaHei",Roboto,sans-serif;font-size:15px;line-height:1.75;}
+  header{background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;padding:24px 28px;}
+  .crumb{font-size:12px;opacity:.85;} header h1{margin:4px 0 0;font-size:22px;} header p{margin:8px 0 0;opacity:.92;font-size:13.5px;}
+  main{max-width:880px;margin:0 auto;padding:22px;}
+  .sec{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 24px;margin-bottom:16px;box-shadow:0 1px 3px rgba(16,24,40,.04);}
+  .sec h2{margin:0 0 14px;font-size:17px;}
+  .muted{color:var(--ink2);} code{background:#f1f3f8;border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-size:13px;font-family:Consolas,monospace;}
+  .keyline{background:#fffbeb;border:1px solid #fde68a;border-left:5px solid var(--amber);border-radius:10px;padding:12px 16px;margin-top:8px;font-weight:700;color:#92400e;}
+  .pair{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .panel{border-radius:12px;overflow:hidden;border:1px solid var(--line);}
+  .panel .cap{padding:7px 12px;font-weight:700;font-size:13px;color:#fff;}
+  .req .cap{background:var(--blue);} .res .cap{background:var(--green);}
+  .panel pre{margin:0;padding:12px;font-family:Consolas,monospace;font-size:12.5px;line-height:1.6;white-space:pre-wrap;background:#fafbfd;}
+  .panel .anno{padding:8px 12px;font-size:12px;color:var(--ink2);border-top:1px dashed var(--line);}
+  @media(max-width:640px){.pair{grid-template-columns:1fr;}}
+  table{width:100%;border-collapse:collapse;} th{text-align:left;font-size:12px;color:var(--ink3);padding:8px 10px;border-bottom:1px solid var(--line);} td{padding:8px 10px;border-bottom:1px solid #eef0f4;font-size:13.5px;vertical-align:top;}
+  .m{font-family:Consolas,monospace;font-weight:700;} .m.get{color:var(--green);} .m.post{color:var(--blue);} .m.put{color:var(--amber);} .m.del{color:var(--red);}
+  .code2{font-weight:700;font-family:Consolas,monospace;} .c2{color:var(--green);} .c4{color:var(--amber);} .c5{color:var(--red);}
+  .do{background:var(--teal-s);border:1px solid #c3ece6;border-radius:12px;padding:14px 18px;} .do h3{margin:0 0 8px;color:var(--teal);font-size:14px;} .do ol{margin:0;padding-left:20px;color:var(--ink2);font-size:14px;}
+  .recap{display:flex;flex-wrap:wrap;gap:8px;} .chip{background:#f1f3f8;border:1px solid var(--line);border-radius:20px;padding:5px 12px;font-size:13px;}
+  .memo{background:var(--indigo);color:#fff;border-radius:12px;padding:14px 18px;font-weight:700;text-align:center;margin-top:14px;}
+  .done{background:linear-gradient(135deg,#16a34a,#0d9488);color:#fff;border-radius:14px;padding:16px 20px;text-align:center;font-weight:700;}
+  .nav{text-align:center;color:var(--ink3);font-size:13px;margin-top:8px;} .nav a{color:var(--indigo);text-decoration:none;}
+</style>
+</head>
+<body>
+<header>
+  <div class="crumb">模块 1 · 计算机与网络入门　|　第 4 课（模块收官）</div>
+  <h1>1.4　HTTP 深入：请求 / 响应 / 方法 / 状态码</h1>
+  <p>本课目标：把"一问一答"拆到零件级，看懂一次真实请求里到底有啥。</p>
+</header>
+<main>
+
+  <div class="sec">
+    <h2>① 回顾：HTTP = 一问一答</h2>
+    <p class="muted">浏览器（客户端）发一个<b>请求</b>，服务器回一个<b>响应</b>。这节我们把"请求"和"响应"各自拆开，看里面的零件。</p>
+    <div class="keyline">🔑 请求 = 方法 + 地址 + 头 + 体；响应 = 状态码 + 头 + 体。</div>
+  </div>
+
+  <div class="sec">
+    <h2>② 拆开一次真实请求/响应（我们项目的"开始核对"）</h2>
+    <div class="pair">
+      <div class="panel req">
+        <div class="cap">① 请求 Request（浏览器发出）</div>
+        <pre>POST /api/reconcile        ← 方法 + 地址
+Host: 127.0.0.1:8000       ← 去哪台机器
+Content-Type: multipart    ← 我带的是"文件"
+（body）公司.xlsx + 客户.xls ← 带的数据</pre>
+        <div class="anno"><b>方法</b>=POST（我交东西）<b>地址</b>=核对窗口　<b>头</b>=附加说明　<b>体</b>=两个 Excel</div>
+      </div>
+      <div class="panel res">
+        <div class="cap">② 响应 Response（服务器回来）</div>
+        <pre>200 OK                     ← 状态码：成功
+Content-Type: application/json
+（body）{ "ok_total":36,
+         "err_total":3, ... }  ← 结果数据</pre>
+        <div class="anno"><b>状态码</b>=200（成了）　<b>头</b>=我回的是 JSON　<b>体</b>=核对结果</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <h2>③ 方法：你想"干嘛"</h2>
+    <table>
+      <thead><tr><th style="width:80px">方法</th><th>意思</th><th>项目里的例子</th></tr></thead>
+      <tbody>
+        <tr><td><span class="m get">GET</span></td><td>给我看 / 给我拿</td><td>打开网页、<code>/api/clients</code> 取客户列表、下载结果</td></tr>
+        <tr><td><span class="m post">POST</span></td><td>我交东西给你（新建/提交）</td><td><code>/api/reconcile</code> 上传两个文件来核对</td></tr>
+        <tr><td><span class="m put">PUT</span></td><td>更新 / 设置成…</td><td>（就是我们改 GitHub 权限时用的那个，把某人设成 admin）</td></tr>
+        <tr><td><span class="m del">DELETE</span></td><td>删掉</td><td>（移除一个协作者）</td></tr>
+      </tbody>
+    </table>
+    <p class="muted" style="margin-top:10px">记口诀：<b>GET 拿、POST 交、PUT 改、DELETE 删</b>。</p>
+  </div>
+
+  <div class="sec">
+    <h2>④ 状态码：这单"成没成"</h2>
+    <table>
+      <thead><tr><th style="width:90px">范围</th><th>含义</th><th>常见</th></tr></thead>
+      <tbody>
+        <tr><td><span class="code2 c2">2xx</span></td><td>成功</td><td><code>200</code> 成功；<code>204</code> 成功但没内容返回</td></tr>
+        <tr><td><span class="code2" style="color:var(--blue)">3xx</span></td><td>跳转（去别处）</td><td><code>301/302</code> 网址搬家了</td></tr>
+        <tr><td><span class="code2 c4">4xx</span></td><td>你（客户端）错了</td><td><code>404</code> 找不到；<code>403</code> 没权限；<code>400</code> 你发的内容有问题</td></tr>
+        <tr><td><span class="code2 c5">5xx</span></td><td>服务器自己错了</td><td><code>500</code> 服务器内部出错（厨房翻车）</td></tr>
+      </tbody>
+    </table>
+    <p class="muted" style="margin-top:10px">记法：<b>4 开头怪你，5 开头怪服务器</b>。你上网见过的"404 页面不存在"就是这个。</p>
+  </div>
+
+  <div class="sec">
+    <h2>⑤ 头(Headers) 和 体(Body) 是啥</h2>
+    <p class="muted">
+      · <b>头 Headers</b> = "附加说明的小纸条"：我能接受什么格式、我带的内容是什么类型、我是谁（带身份令牌）等。<br>
+      · <b>体 Body</b> = "真正要传的货"：上传的文件、提交的数据、返回的结果。<br>
+      <span style="color:var(--ink3)">（我们之前调 GitHub API 卡了半天，根因就是"头"里少写了 <code>Content-Type: application/json</code>，对方没认出体里的内容——你已经实战见过头的重要性了。）</span>
+    </p>
+  </div>
+
+  <div class="sec">
+    <h2>⑥ 动手 & 小结</h2>
+    <div class="do">
+      <h3>✍️ 动手 3 分钟（亲眼看真实请求）</h3>
+      <ol>
+        <li>浏览器打开任意网页 → 按 <code>F12</code> 打开开发者工具 → 选 <b>Network（网络）</b> 标签。</li>
+        <li>刷新页面，你会看到一条条请求；点开一条，能看到它的<b>方法、地址、状态码、头、体</b>——和本课讲的一模一样。</li>
+        <li>（看不懂没关系，先建立"原来一次点击背后是这样一问一答"的画面感。）</li>
+      </ol>
+    </div>
+    <p style="margin:16px 0 6px;font-weight:700">✅ 小结</p>
+    <div class="recap">
+      <span class="chip">请求 = 方法+地址+头+体</span>
+      <span class="chip">响应 = 状态码+头+体</span>
+      <span class="chip">GET拿/POST交/PUT改/DELETE删</span>
+      <span class="chip">4xx怪你·5xx怪服务器</span>
+    </div>
+    <div class="memo">🧠 记忆点：一次点击 = 一封"请求信"寄出 → 收到一封"响应信"</div>
+  </div>
+
+  <div class="sec">
+    <div class="done">🎉 恭喜！模块 1（计算机与网络入门）全部学完。<br>你已经能看懂这个项目"在网络层面"是怎么跑的了。</div>
+  </div>
+
+  <div class="nav">上一课 ← <a href="lesson-01-3.html">1.3 IP·端口·域名·DNS</a>　|　下一模块 → 2.1 Python + uv（说"继续"即可生成）</div>
+
+</main>
+</body>
+</html>

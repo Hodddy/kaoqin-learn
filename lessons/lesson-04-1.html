@@ -1,0 +1,24 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>第 4.1 课 · Web 框架·为什么 FastAPI</title><link rel="stylesheet" href="lesson.css"></head><body>
+<header><div class="crumb">模块 4 · 做成 Web 后端 ｜ 第 1 课</div><h1>4.1　Web 框架是什么 · 为什么用 FastAPI</h1><p>本课目标：理解"框架"帮你省了什么，为什么不从零造。</p></header>
+<main>
+<div class="sec"><h2>① Web 框架 = 处理 HTTP 的脚手架</h2>
+<p>还记得模块 1 的"请求/响应"吗？真要自己处理网络连接、解析请求、拼响应，非常繁琐。<b>Web 框架把这些脏活包好了</b>，你只管写"收到这个请求该回什么"。</p>
+<div class="key">🔑 框架 = 别人搭好的厨房骨架，你只管炒菜，不用自己砌灶台。</div></div>
+<div class="sec"><h2>② 为什么选 FastAPI</h2>
+<ul class="points">
+<li>简单：几行就能写一个接口。</li>
+<li>快、现代，自带数据校验和自动文档。</li>
+<li>Python 生态主流，资料多。（Flask 是另一个流行选择，概念相通。）</li>
+</ul></div>
+<div class="sec"><h2>③ 在我们项目里（用"开餐厅"理解）</h2>
+<table><thead><tr><th>代码</th><th>开餐厅里对应</th></tr></thead><tbody>
+<tr><td><code>app = FastAPI()</code></td><td>盘下一家餐厅、摆好前台（餐厅有了，<b>菜单还空着</b>）。<code>app</code> 就代表"你这个 Web 应用本身"。</td></tr>
+<tr><td><code>@app.get("/api/clients")</code><br>（写在函数上面）</td><td>往菜单<b>加一道菜</b>：把"取客户列表"这个服务挂到 <code>app</code> 上。每个接口（取客户/上传核对/下载）都是一道菜。</td></tr>
+<tr><td><code>uvicorn web.server:app</code></td><td><b>开门营业的店员</b>：把这个 <code>app</code> 跑起来，盯着端口、接客、按菜单上菜。</td></tr>
+</tbody></table>
+<div class="key" style="margin-top:10px">🔑 <code>app</code> = 餐厅 + 菜单（定义"有哪些服务"，静止的）；<code>uvicorn</code> = 开门营业的店员（真正让它跑起来对外服务）。<b>app 管"提供什么"，uvicorn 管"运行起来"。</b></div></div>
+<div class="sec"><h2>④ 小结</h2>
+<div class="recap"><span class="chip">框架=处理HTTP的脚手架</span><span class="chip">只写"收到啥回啥"</span><span class="chip">FastAPI 简单现代</span></div>
+<div class="memo">🧠 记忆点：框架搭好骨架，你只写业务这道菜</div></div>
+<div class="nav">上一模块 ← <a href="lesson-03-5.html">3.5 插件化</a>　|　下一课 → <a href="lesson-04-2.html">4.2 第一个接口</a>　|　<a href="index.html">📚 目录</a></div>
+</main></body></html>

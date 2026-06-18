@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>上线清单 · 从现在到公司服务器</title>
+<style>
+  :root{--ink:#1f2330;--ink2:#586074;--ink3:#9aa0ae;--bg:#f4f6fa;--card:#fff;--line:#e6e9f0;--indigo:#4f46e5;
+    --green:#16a34a;--green-s:#f0fdf4;--amber:#d97706;--amber-s:#fff8ec;--blue:#2563eb;}
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,"Segoe UI","Microsoft YaHei",Roboto,sans-serif;font-size:14.5px;line-height:1.6;}
+  header{background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;padding:24px 28px;}
+  header h1{margin:0;font-size:20px;}
+  header p{margin:8px 0 0;opacity:.92;font-size:13px;}
+  .prog{margin-top:12px;background:rgba(255,255,255,.18);border-radius:20px;padding:6px 14px;display:inline-block;font-size:13px;font-weight:700;}
+  main{max-width:920px;margin:0 auto;padding:22px;}
+  .here{background:#fff8ec;border:1px solid #fde68a;border-left:5px solid var(--amber);border-radius:12px;padding:12px 16px;margin-bottom:18px;font-size:13.5px;color:#92400e;}
+  .here b{color:#b45309;}
+  .phase{background:var(--card);border:1px solid var(--line);border-left:6px solid;border-radius:14px;padding:14px 18px 8px;margin-bottom:14px;box-shadow:0 1px 3px rgba(16,24,40,.04);}
+  .phase h2{margin:0 0 10px;font-size:16px;display:flex;align-items:center;gap:9px;}
+  .phase .badge{width:28px;height:28px;border-radius:8px;color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;}
+  .item{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px dashed #eef0f4;}
+  .item:last-child{border-bottom:none;}
+  .item input{margin-top:4px;width:18px;height:18px;flex-shrink:0;cursor:pointer;accent-color:var(--green);}
+  .item .body{flex:1;min-width:0;}
+  .item .do{font-weight:600;}
+  .item.done .do{text-decoration:line-through;color:var(--ink3);}
+  .item .kn{font-size:12.5px;color:var(--ink2);margin-top:3px;}
+  .item .kn a{color:var(--indigo);text-decoration:none;font-weight:600;}
+  .item .kn a:hover{text-decoration:underline;}
+  .pin{display:inline-block;font-size:11px;font-weight:700;background:#fef2f2;color:#dc2626;border:1px solid #fecaca;border-radius:20px;padding:1px 9px;margin-left:6px;}
+  .p1{border-left-color:#16a34a;} .p1 .badge{background:#16a34a;}
+  .p2{border-left-color:#0891b2;} .p2 .badge{background:#0891b2;}
+  .p3{border-left-color:#d97706;} .p3 .badge{background:#d97706;}
+  .p4{border-left-color:#7c3aed;} .p4 .badge{background:#7c3aed;}
+  .p5{border-left-color:#475569;} .p5 .badge{background:#475569;}
+  .tip{background:#eef2ff;border:1px solid #d9defb;border-radius:12px;padding:14px 18px;margin:18px 0;font-size:13.5px;color:var(--ink2);}
+  .tip b{color:var(--indigo);}
+</style>
+</head>
+<body>
+<header>
+  <h1>🚀 上线清单 · 从现在到"公司服务器人人能访问"</h1>
+  <p>每一步：做什么 + 对应课程知识点。勾选自动记住（存在本浏览器）。</p>
+  <div class="prog" id="prog">完成 0 / 0</div>
+</header>
+<main>
+
+  <div class="here">📍 <b>你现在在这</b>：核心逻辑、Web 后端、前端、服务层 <b>已完成（前 4 项）</b>。下一步从「加数据库 / 历史记录」开始往上线走。</div>
+
+  <!-- 阶段1 -->
+  <div class="phase p1">
+    <h2><span class="badge">1</span>把功能做完整（MVP → 完整产品）</h2>
+    <div class="item"><input type="checkbox" data-id="c1" checked><div class="body"><div class="do">核对核心逻辑（解析·核对·罚款）</div><div class="kn">🎓 <a href="lesson-03-1.html">模块 3</a>　·　✅ 已完成</div></div></div>
+    <div class="item"><input type="checkbox" data-id="c2" checked><div class="body"><div class="do">Web 后端接口（上传 / 核对 / 下载）</div><div class="kn">🎓 <a href="lesson-04-1.html">模块 4</a>　·　✅ 已完成</div></div></div>
+    <div class="item"><input type="checkbox" data-id="c3" checked><div class="body"><div class="do">Web 前端页面（上传·结果表·下载·主题）</div><div class="kn">🎓 <a href="lesson-05-1.html">模块 5</a>　·　✅ 已完成</div></div></div>
+    <div class="item"><input type="checkbox" data-id="c4" checked><div class="body"><div class="do">桌面/Web 共用的服务层 run_reconcile</div><div class="kn">🎓 <a href="lesson-04-5.html">4.5</a>　·　✅ 已完成</div></div></div>
+    <div class="item"><input type="checkbox" data-id="c5"><div class="body"><div class="do">加数据库 + 历史记录（让系统"记住"每次核对）<span class="pin">下一步</span></div><div class="kn">🎓 <a href="lesson-06-1.html">6.1</a> · <a href="lesson-06-2.html">6.2</a> · <a href="lesson-06-3.html">6.3 实战</a></div></div></div>
+    <div class="item"><input type="checkbox" data-id="c6"><div class="body"><div class="do">加登录鉴权（决定"谁能用"）</div><div class="kn">🎓 <a href="lesson-07-5.html">7.5 安全与鉴权</a></div></div></div>
+    <div class="item"><input type="checkbox" data-id="c7"><div class="body"><div class="do">（可选）多客户 / 配置在线管理</div><div class="kn">🎓 <a href="lesson-03-5.html">3.5 插件化</a></div></div></div>
+  </div>
+
+  <!-- 阶段2 -->
+  <div class="phase p2">
+    <h2><span class="badge">2</span>打包成"可交付的东西"</h2>
+    <div class="item"><input type="checkbox" data-id="c8"><div class="body"><div class="do">列依赖清单 requirements.txt（用了哪些库）</div><div class="kn">🎓 <a href="lesson-08-2.html">8.2 依赖·配置·密钥</a></div></div></div>
+    <div class="item"><input type="checkbox" data-id="c9"><div class="body"><div class="do">写 Dockerfile 容器化（环境一起打包）</div><div class="kn">🎓 <a href="lesson-07-6.html">7.6 Docker</a></div></div></div>
+    <div class="item"><input type="checkbox" data-id="c10"><div class="body"><div class="do">配置 / 密钥改用环境变量（别写死、别进 Git）</div><div class="kn">🎓 <a href="lesson-08-2.html">8.2</a> · <a href="lesson-07-5.html">7.5</a></div></div></div>
+  </div>
+
+  <!-- 阶段3 -->
+  <div class="phase p3">
+    <h2><span class="badge">3</span>搬上公司服务器</h2>
+    <div class="item"><input type="checkbox" data-id="c11"><div class="body"><div class="do">向 IT 要一台服务器（Linux / 能跑 Docker，内网即可）</div><div class="kn">🎓 <a href="lesson-07-1.html">7.1</a> · <a href="lesson-07-7.html">7.7 交涉清单</a></div></div></div>
+    <div class="item"><input type="checkbox" data-id="c12"><div class="body"><div class="do">在服务器上部署并跑起来</div><div class="kn">🎓 <a href="lesson-02-1.html">2.1 uv</a> · <a href="lesson-07-1.html">7.1</a></div></div></div>
+    <div class="item"><input type="checkbox" data-id="c13"><div class="body"><div class="do">进程守护 systemd（常驻 + 自启 + 崩溃自动重启）</div><div class="kn">🎓 <a href="lesson-07-2.html">7.2 进程守护</a></div></div></div>
+    <div class="item"><input type="checkbox" data-id="c14"><div class="body"><div class="do">Nginx 反向代理 + HTTPS 证书</div><div class="kn">🎓 <a href="lesson-07-3.html">7.3 Nginx+HTTPS</a></div></div></div>
+    <div class="item"><input type="checkbox" data-id="c15"><div class="body"><div class="do">端口放行 / 防火墙 / 白名单</div><div class="kn">🎓 <a href="lesson-07-4.html">7.4 网络·防火墙</a></div></div></div>
+    <div class="item"><input type="checkbox" data-id="c16"><div class="body"><div class="do">域名 + DNS（kaoqin.公司.com 指向服务器）</div><div class="kn">🎓 <a href="lesson-01-3.html">1.3 域名·DNS</a> · <a href="lesson-07-7.html">7.7</a></div></div></div>
+  </div>
+
+  <!-- 阶段4 -->
+  <div class="phase p4">
+    <h2><span class="badge">4</span>安全与稳定</h2>
+    <div class="item"><input type="checkbox" data-id="c17"><div class="body"><div class="do">鉴权 / 最小权限 / 全程 HTTPS 复核</div><div class="kn">🎓 <a href="lesson-07-5.html">7.5 安全鉴权</a></div></div></div>
+    <div class="item"><input type="checkbox" data-id="c18"><div class="body"><div class="do">限制上传（文件类型 / 大小）</div><div class="kn">🎓 <a href="lesson-07-5.html">7.5</a></div></div></div>
+    <div class="item"><input type="checkbox" data-id="c19"><div class="body"><div class="do">日志 / 监控 / 备份</div><div class="kn">🎓 <a href="lesson-08-3.html">8.3 日志·监控·备份</a></div></div></div>
+    <div class="item"><input type="checkbox" data-id="c20"><div class="body"><div class="do">真实数据端到端跑通一遍，结果正确</div><div class="kn">🎓 <a href="lesson-08-3.html">8.3 上线检查</a>（实战我陪你做）</div></div></div>
+    <div class="item"><input type="checkbox" data-id="c21"><div class="body"><div class="do">上线检查单逐条过</div><div class="kn">🎓 <a href="lesson-08-3.html">8.3 检查单</a></div></div></div>
+  </div>
+
+  <!-- 阶段5 -->
+  <div class="phase p5">
+    <h2><span class="badge">5</span>对接 IT + 交付</h2>
+    <div class="item"><input type="checkbox" data-id="c22"><div class="body"><div class="do">备齐交付物（Docker 镜像 + 部署文档）</div><div class="kn">🎓 <a href="lesson-07-7.html">7.7</a> · 现成文档 docs/web-deployment.md</div></div></div>
+    <div class="item"><input type="checkbox" data-id="c23"><div class="body"><div class="do">向 IT 提申请清单（服务器/端口/域名/证书/白名单）</div><div class="kn">🎓 <a href="lesson-07-7.html">7.7 交涉清单</a></div></div></div>
+    <div class="item"><input type="checkbox" data-id="c24"><div class="body"><div class="do">联调上线（和 IT 一起把它跑通）</div><div class="kn">🎓 实战，我陪你逐步对接</div></div></div>
+    <div class="item"><input type="checkbox" data-id="c25"><div class="body"><div class="do">移交 / 简单培训 HR / 约定后续维护</div><div class="kn">🎓 <a href="lesson-08-1.html">模块 8 工程化</a></div></div></div>
+  </div>
+
+  <div class="tip"><b>怎么用这张清单：</b>从「下一步」那项（加数据库）开始，<b>一项一项来</b>。每到一项：① 先看链接的课弄懂知识点；② 跟我说<b>「带我做第 X 项」</b>，我就手把手陪你在真实项目上敲出来。<br>课程已覆盖全部知识点，所以这里没有"缺课"——缺的只是动手，那部分我们一起做。</div>
+
+</main>
+<script>
+  const boxes=[...document.querySelectorAll('.item input')];
+  function save(){const m={};boxes.forEach(b=>m[b.dataset.id]=b.checked);localStorage.setItem('kq_deploy',JSON.stringify(m));}
+  function refresh(){let d=0;boxes.forEach(b=>{b.closest('.item').classList.toggle('done',b.checked);if(b.checked)d++;});document.getElementById('prog').textContent=`完成 ${d} / ${boxes.length}`;}
+  (function(){const raw=localStorage.getItem('kq_deploy');if(raw){try{const m=JSON.parse(raw);boxes.forEach(b=>b.checked=!!m[b.dataset.id]);}catch(e){}}
+   boxes.forEach(b=>b.addEventListener('change',()=>{save();refresh();}));refresh();})();
+</script>
+</body>
+</html>

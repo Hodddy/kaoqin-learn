@@ -1,0 +1,24 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>第 3.5 课 · 插件化扩展新客户</title><link rel="stylesheet" href="lesson.css"></head><body>
+<header><div class="crumb">模块 3 · 读懂并能写"核对核心" ｜ 第 5 课（模块收官）</div><h1>3.5　插件化：怎么扩展一个新客户</h1><p>本课目标：理解"为什么加新客户不用改老代码"。</p></header>
+<main>
+<div class="sec"><h2>① 问题：每个客户规则不一样</h2>
+<p>客户A 和 客户B 的表格列、核对规则可能都不同。如果写死，加一个客户就要改一堆。<b>插件化</b>就是为了解决这个。</p></div>
+<div class="sec"><h2>② 插件 = 按统一契约各写一套</h2>
+<ul class="points">
+<li><code>clients/base.py</code> 定义了一个<b>契约</b>（<code>ClientPlugin</code>）：每个客户必须实现 <code>read_monthly / read_detail / reconcile / write_output</code>。</li>
+<li>各客户照契约各写一套，互不影响。</li>
+<li><code>clients/__init__.py</code> 的 <code>REGISTRY</code> 登记所有客户；界面下拉框自动出现。</li>
+</ul>
+<div class="key">🔑 定好"插座规格"（契约），每个客户做个"插头"插上去就行。</div></div>
+<div class="sec"><h2>③ 加新客户的步骤</h2><div class="proj">
+1）在 <code>clients/</code> 下照着 <code>client_a/</code> 建个新文件夹；<br>
+2）实现那 4 个方法（按新客户的表格和规则）；<br>
+3）在 <code>REGISTRY</code> 里登记一行。<br>
+完事——老客户、核心、界面一行都不用动。
+</div></div>
+<div class="sec"><h2>④ 小结</h2>
+<div class="recap"><span class="chip">契约=统一规格</span><span class="chip">每客户一个插件</span><span class="chip">REGISTRY登记</span><span class="chip">加客户不改老码</span></div>
+<div class="memo">🧠 记忆点：定好插座(契约)，新客户做个插头插上</div></div>
+<div class="sec"><div class="done">🎉 模块 3 学完！项目最值钱的"核对核心"你已经能读懂、能扩展了。</div></div>
+<div class="nav">上一课 ← <a href="lesson-03-4.html">3.4 核对·罚款</a>　|　下一模块 → <a href="lesson-04-1.html">4.1 Web 框架</a>　|　<a href="index.html">📚 目录</a></div>
+</main></body></html>

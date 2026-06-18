@@ -1,0 +1,30 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>第 7.6 课 · Docker 容器化</title><link rel="stylesheet" href="lesson.css"></head><body>
+<header><div class="crumb">模块 7 · 企业级部署（★主目标）｜ 第 6 课</div><h1>7.6　Docker 容器化（大公司常要）</h1><p>本课目标：理解 Docker 解决的"在我电脑好好的，到服务器就崩"的问题。</p></header>
+<main>
+<div class="sec"><h2>① 问题：环境不一致</h2>
+<p>你电脑装了 Python、各种库、版本正好；换台服务器可能版本不同、少装东西，程序就跑不起来。<b>Docker 把"程序 + 它需要的整个环境"打包成一个集装箱</b>，到哪台机器都一模一样。</p>
+<div class="key">🔑 Docker = 把程序连同环境装进"集装箱"，搬到哪都原样运行。</div></div>
+<div class="sec"><h2>② 三个词 + 三步走（用"做饼干🍪"理解）</h2>
+<div class="flow">
+<div class="n"><div class="e">📜</div><div class="lab">Dockerfile</div><div class="sm">配方<br>(怎么打包)</div></div>
+<div class="ar">build →</div>
+<div class="n"><div class="e">📦</div><div class="lab">镜像 Image</div><div class="sm">做好的"模具"<br>模板·死的</div></div>
+<div class="ar">run →</div>
+<div class="n"><div class="e">🍪</div><div class="lab">容器 Container</div><div class="sm">压出的"饼干"<br>实例·在跑</div></div>
+</div>
+<table style="margin-top:14px"><thead><tr><th>词</th><th>做饼干里对应</th><th>死/活</th></tr></thead><tbody>
+<tr><td><b>Dockerfile</b></td><td>配方说明书（这模具怎么做）</td><td>一张纸</td></tr>
+<tr><td><b>镜像 Image</b></td><td>照配方做出的<b>饼干模具(模板)</b></td><td>死的·能复制分发</td></tr>
+<tr><td><b>容器 Container</b></td><td>拿模具<b>压出的那块饼干</b>（真在用的）</td><td>活的·正在跑</td></tr>
+</tbody></table>
+<div class="key">🔑 写配方(Dockerfile) → <code>docker build</code> 出模具(镜像) → <code>docker run</code> 出饼干(容器)。<br>一个模具能压<b>很多块</b>饼干 = 一个镜像能 run 出很多个容器。</div>
+<p class="muted" style="margin-top:10px">类比你熟的：电脑上那个 <code>.exe</code> ≈ <b>镜像</b>（打包好的成品）；双击它跑起来的窗口 ≈ <b>容器</b>（运行实例）。Docker 更狠——连整个运行环境都打包进镜像，所以搬到哪台机器跑出来都一模一样。</p>
+</div>
+<div class="sec"><h2>③ 跟我们项目 & IT 的关系</h2><div class="proj">
+给本项目写个 <code>Dockerfile</code>（装 Python、装依赖、拷代码、启动 uvicorn），就能交给 IT 一个标准镜像——<b>他们不用关心你的环境细节，run 一下就起来</b>。大公司很多只接收 Docker 镜像，这会让对接顺很多。
+</div></div>
+<div class="sec"><h2>④ 小结</h2>
+<div class="recap"><span class="chip">Docker=程序+环境打包</span><span class="chip">镜像=模板/容器=实例</span><span class="chip">Dockerfile 写打包步骤</span><span class="chip">到哪都一样</span></div>
+<div class="memo">🧠 记忆点：Docker 把"能跑的整套环境"装箱，消灭"在我这没问题"</div></div>
+<div class="nav">上一课 ← <a href="lesson-07-5.html">7.5 安全鉴权</a>　|　下一课 → <a href="lesson-07-7.html">7.7 与 IT 交涉清单</a>　|　<a href="index.html">📚 目录</a></div>
+</main></body></html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>第 5.4 课 · 样式与主题</title><link rel="stylesheet" href="lesson.css"></head><body>
+<header><div class="crumb">模块 5 · 前端三件套 ｜ 第 4 课（模块收官）</div><h1>5.4　样式与主题（我们做的 10 套皮肤）</h1><p>本课目标：理解 CSS 怎么控制样子，"换肤"是怎么做到的。</p></header>
+<main>
+<div class="sec"><h2>① CSS 怎么写</h2>
+<p>CSS 是"给某类元素定样子"：<code>选择器 { 属性: 值; }</code>。</p>
+<pre class="codeblk">.btn { background: #4f46e5; color: white; border-radius: 8px; }
+<span class="c"># 凡是 class="btn" 的元素，都蓝底白字圆角</span></pre></div>
+<div class="sec"><h2>② "换肤"的秘密：CSS 变量</h2>
+<p>把主色定义成一个<b>变量</b> <code>--accent</code>，全页都用它。换肤时只改这一个变量的值，整页颜色跟着变——这就是我们 10 套主题的原理。</p>
+<pre class="codeblk">:root { --accent: #4f46e5; }     <span class="c"># 定义主色变量</span>
+.btn { background: var(--accent); } <span class="c"># 处处引用它</span></pre>
+<div class="key">🔑 颜色不写死，存进变量；换肤=换变量的值，一改全变。</div></div>
+<div class="sec"><h2>③ 在我们项目里</h2><div class="proj">
+右上角"主题"下拉的 10 套浅色皮肤，就是准备了 10 组颜色，选哪套就把 <code>--accent</code> 等变量换成那套的值，并存进浏览器记住你的选择。
+</div></div>
+<div class="sec"><h2>④ 小结</h2>
+<div class="recap"><span class="chip">CSS=选择器{属性:值}</span><span class="chip">CSS变量存主色</span><span class="chip">换肤=换变量值</span></div>
+<div class="memo">🧠 记忆点：样式靠 CSS，换肤靠改一个颜色变量</div></div>
+<div class="sec"><div class="done">🎉 模块 5 学完！前端三件套 + 前后端怎么连，你都懂了。</div></div>
+<div class="nav">上一课 ← <a href="lesson-05-3.html">5.3 fetch 调接口</a>　|　下一模块 → <a href="lesson-06-1.html">6.1 数据库是什么</a>　|　<a href="index.html">📚 目录</a></div>
+</main></body></html>

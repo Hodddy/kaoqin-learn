@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第 1.3 课 · IP·端口·域名·DNS</title>
+<style>
+  :root{--ink:#1f2330;--ink2:#586074;--ink3:#9aa0ae;--bg:#f4f6fa;--card:#fff;--line:#e6e9f0;
+    --blue:#2563eb;--indigo:#4f46e5;--green:#16a34a;--amber:#d97706;--teal:#0d9488;--teal-s:#effdfa;}
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI","Microsoft YaHei",Roboto,sans-serif;font-size:15px;line-height:1.75;}
+  header{background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;padding:24px 28px;}
+  .crumb{font-size:12px;opacity:.85;} header h1{margin:4px 0 0;font-size:22px;} header p{margin:8px 0 0;opacity:.92;font-size:13.5px;}
+  main{max-width:880px;margin:0 auto;padding:22px;}
+  .sec{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 24px;margin-bottom:16px;box-shadow:0 1px 3px rgba(16,24,40,.04);}
+  .sec h2{margin:0 0 14px;font-size:17px;}
+  .muted{color:var(--ink2);} code{background:#f1f3f8;border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-size:13px;font-family:Consolas,monospace;}
+  .keyline{background:#fffbeb;border:1px solid #fde68a;border-left:5px solid var(--amber);border-radius:10px;padding:12px 16px;margin-top:8px;font-weight:700;color:#92400e;}
+  .grid4{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .card{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:#fafbff;}
+  .card .h{font-weight:800;font-size:15px;display:flex;align-items:center;gap:8px;}
+  .card .real{font-family:Consolas,monospace;font-size:12.5px;color:var(--indigo);margin-top:4px;}
+  .card .d{font-size:13px;color:var(--ink2);margin-top:4px;}
+  @media(max-width:640px){.grid4{grid-template-columns:1fr;}}
+  /* 地址拆解 */
+  .addr{text-align:center;font-family:Consolas,monospace;font-size:20px;margin:6px 0 4px;}
+  .addr .ip{color:var(--blue);font-weight:700;} .addr .port{color:var(--green);font-weight:700;}
+  .addrlab{display:flex;justify-content:center;gap:60px;font-size:12.5px;color:var(--ink2);}
+  table{width:100%;border-collapse:collapse;margin-top:6px;} th{text-align:left;font-size:12px;color:var(--ink3);padding:8px 10px;border-bottom:1px solid var(--line);} td{padding:8px 10px;border-bottom:1px solid #eef0f4;font-size:13.5px;}
+  td code{font-size:12.5px;}
+  .dns{display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap;text-align:center;}
+  .dns .n{flex:1;min-width:120px;} .dns .e{font-size:30px;} .dns .lab{font-weight:700;margin-top:2px;font-size:13px;} .dns .sm{font-size:12px;color:var(--ink3);}
+  .dns .ar{flex:.6;min-width:60px;color:var(--indigo);font-weight:700;font-size:13px;}
+  .do{background:var(--teal-s);border:1px solid #c3ece6;border-radius:12px;padding:14px 18px;} .do h3{margin:0 0 8px;color:var(--teal);font-size:14px;} .do ol{margin:0;padding-left:20px;color:var(--ink2);font-size:14px;}
+  .recap{display:flex;flex-wrap:wrap;gap:8px;} .chip{background:#f1f3f8;border:1px solid var(--line);border-radius:20px;padding:5px 12px;font-size:13px;}
+  .memo{background:var(--indigo);color:#fff;border-radius:12px;padding:14px 18px;font-weight:700;text-align:center;margin-top:14px;}
+  .nav{text-align:center;color:var(--ink3);font-size:13px;margin-top:8px;} .nav a{color:var(--indigo);text-decoration:none;}
+</style>
+</head>
+<body>
+<header>
+  <div class="crumb">模块 1 · 计算机与网络入门　|　第 3 课</div>
+  <h1>1.3　IP · 端口 · 域名 · DNS：机器怎么互相找到</h1>
+  <p>本课目标：搞懂 <code>127.0.0.1:8000</code> 和 <code>github.com</code> 背后这 4 个词。</p>
+</header>
+<main>
+
+  <div class="sec">
+    <h2>① 四个词，一个比喻全串起来 🏢</h2>
+    <div class="grid4">
+      <div class="card"><div class="h">📍 IP 地址</div><div class="real">如 192.168.1.20、127.0.0.1</div><div class="d">每台机器在网络里的"门牌号"。<code>127.0.0.1</code> 特指"我自己这台"。</div></div>
+      <div class="card"><div class="h">🚪 端口 Port</div><div class="real">如 8000、443、80</div><div class="d">同一台机器上"哪个服务/几号房间"。一台机器能开很多服务，用端口区分。</div></div>
+      <div class="card"><div class="h">🏷️ 域名 Domain</div><div class="real">如 github.com</div><div class="d">给 IP 起的"好记名字"，因为数字 IP 难记。</div></div>
+      <div class="card"><div class="h">📒 DNS</div><div class="real">域名 → IP 的查号台</div><div class="d">你说域名，它帮你查出对应的 IP，再去连。</div></div>
+    </div>
+    <div class="keyline">🏢 比喻：IP=楼栋门牌，端口=几号房间，域名=店名，DNS=把"店名"翻成"地址"的查号台/导航。</div>
+  </div>
+
+  <div class="sec">
+    <h2>② 拆开 <code>127.0.0.1:8000</code></h2>
+    <div class="addr"><span class="ip">127.0.0.1</span> : <span class="port">8000</span></div>
+    <div class="addrlab"><span>门牌号（哪台机器）<br>= 我自己这台</span><span>几号房间（哪个服务）<br>= 8000 号窗口</span></div>
+    <p class="muted" style="margin-top:12px">所以这串就是："去<b>我自己这台电脑</b>的<b>8000 号窗口</b>"。换成局域网就是 <code>192.168.1.20:8000</code>（别人的机器门牌 + 同样 8000 房间）。</p>
+    <table>
+      <thead><tr><th>地址</th><th>含义</th></tr></thead>
+      <tbody>
+        <tr><td><code>127.0.0.1</code> / <code>localhost</code></td><td>本机（我自己）</td></tr>
+        <tr><td><code>192.168.x.x</code></td><td>局域网里的某台机器（公司内网常见）</td></tr>
+        <tr><td>常见端口 <code>80</code>/<code>443</code></td><td>网站默认端口（80=http，443=https），所以平时上网不用写端口</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="sec">
+    <h2>③ DNS 怎么工作（你打开 github.com 时）</h2>
+    <div class="dns">
+      <div class="n"><div class="e">⌨️</div><div class="lab">你输 github.com</div><div class="sm">人记得住的名字</div></div>
+      <div class="ar">问 DNS →</div>
+      <div class="n"><div class="e">📒</div><div class="lab">DNS 查号台</div><div class="sm">名字→IP</div></div>
+      <div class="ar">查到 IP →</div>
+      <div class="n"><div class="e">🖥️</div><div class="lab">连到那台机器</div><div class="sm">真正按 IP 去访问</div></div>
+    </div>
+    <p class="muted" style="margin-top:12px">机器之间其实只认 IP（数字门牌）；域名是给人看的。每次访问域名，电脑先偷偷问 DNS"它的 IP 是多少"，再去连。</p>
+  </div>
+
+  <div class="sec">
+    <h2>④ 在我们项目里 & 将来部署</h2>
+    <p class="muted">
+      · 本机版：<code>127.0.0.1:8000</code>（自己的门牌 + 8000 房间）<br>
+      · 局域网共享：同事用 <code>192.168.1.20:8000</code>（你这台的门牌）<br>
+      · <b>大公司正式部署</b>：会给一个<b>域名</b>，比如 <code>kaoqin.公司.com</code>，背后 DNS 指向服务器 IP，端口走 443（HTTPS）。<br>
+      —— 模块 7 跟 IT 谈的，很多就是"给我一个域名、开放哪个端口、配 DNS"。
+    </p>
+  </div>
+
+  <div class="sec">
+    <h2>⑤ 动手 & 小结</h2>
+    <div class="do">
+      <h3>✍️ 动手 2 分钟（打开"命令提示符 / 终端"，敲两条看看）</h3>
+      <ol>
+        <li><code>ping github.com</code> —— 会显示出 github 的一个 <b>IP 地址</b>（域名→IP 你亲眼看到了）。</li>
+        <li><code>ipconfig</code>（Win）—— 找 <b>IPv4 地址</b>，那就是<b>你这台电脑在局域网里的门牌号</b>（局域网共享时同事就用它）。</li>
+        <li>（不会开终端没关系，2.1 课会手把手教；现在看个印象即可。）</li>
+      </ol>
+    </div>
+    <p style="margin:16px 0 6px;font-weight:700">✅ 小结</p>
+    <div class="recap">
+      <span class="chip">IP = 机器门牌号</span>
+      <span class="chip">端口 = 几号房间/哪个服务</span>
+      <span class="chip">域名 = 好记的店名</span>
+      <span class="chip">DNS = 店名翻成地址</span>
+    </div>
+    <div class="memo">🧠 记忆点：域名(店名) → DNS(查号台) → IP(门牌) → 端口(房间)</div>
+  </div>
+
+  <div class="nav">上一课 ← <a href="lesson-01-2.html">1.2 客户端vs服务器</a>　|　下一课 → <a href="lesson-01-4.html">1.4 HTTP 深入</a></div>
+
+</main>
+</body>
+</html>

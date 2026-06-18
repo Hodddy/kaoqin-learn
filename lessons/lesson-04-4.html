@@ -1,0 +1,16 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>第 4.4 课 · 返回 JSON·下载·状态码</title><link rel="stylesheet" href="lesson.css"></head><body>
+<header><div class="crumb">模块 4 · 做成 Web 后端 ｜ 第 4 课</div><h1>4.4　返回 JSON、文件下载、状态码与报错</h1><p>本课目标：后端怎么把"结果数据"和"可下载文件"回给浏览器。</p></header>
+<main>
+<div class="sec"><h2>① 返回结果数据 → JSON</h2>
+<p>直接 <code>return</code> 一个字典，FastAPI 自动变 JSON。我们返回的是：总人数、OK/异常数、每个人的结果、运行日志。</p>
+<pre class="codeblk">return {"ok_total":36, "err_total":3, "months":[...], "logs":[...]}</pre></div>
+<div class="sec"><h2>② 返回文件 → 让浏览器下载</h2>
+<p>处理后的 Excel 用 <code>FileResponse(路径)</code> 回给浏览器，浏览器就弹出下载。我们用一个"令牌(token)"对应一个文件，前端拿令牌去 <code>GET /api/download/{token}</code> 下载。</p></div>
+<div class="sec"><h2>③ 出错 → 用状态码告诉前端</h2>
+<p>客户文件不是 .xls？<code>raise HTTPException(400, "客户文件必须为 .xls")</code> —— 回一个 400（你错了）+ 说明。前端看到非 200 就提示用户。<br>
+<span class="muted">（还记得模块 1 的状态码吗？4xx 怪客户端、5xx 怪服务器，这里就用上了。）</span></p></div>
+<div class="sec"><h2>④ 小结</h2>
+<div class="recap"><span class="chip">return字典→JSON</span><span class="chip">FileResponse 给下载</span><span class="chip">HTTPException 报错+状态码</span></div>
+<div class="memo">🧠 记忆点：数据回 JSON，文件回 FileResponse，错误回状态码</div></div>
+<div class="nav">上一课 ← <a href="lesson-04-3.html">4.3 文件上传</a>　|　下一课 → <a href="lesson-04-5.html">4.5 复用服务层</a>　|　<a href="index.html">📚 目录</a></div>
+</main></body></html>

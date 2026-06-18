@@ -1,0 +1,24 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>第 3.2 课 · 数据模型 dataclass</title><link rel="stylesheet" href="lesson.css"></head><body>
+<header><div class="crumb">模块 3 · 读懂并能写"核对核心" ｜ 第 2 课</div><h1>3.2　数据模型 dataclass：把一行考勤变成"对象"</h1><p>本课目标：理解为什么不直接用一堆变量，而是打包成"对象"。</p></header>
+<main>
+<div class="sec"><h2>① 问题：一个人有一堆信息</h2>
+<p>一个员工：姓名、应出勤、实际出勤、加班、请假、漏签…… 如果用一堆零散变量，传来传去很乱。<b>把它们打包成一个"对象"</b>，就清爽了。</p></div>
+<div class="sec"><h2>② dataclass = 自定义的"数据盒子模板"</h2>
+<pre class="codeblk">from dataclasses import dataclass
+@dataclass
+class CompanyRecord:
+    name: str            <span class="c"># 姓名</span>
+    ying_qin: float = 0  <span class="c"># 应出勤</span>
+    actual:   float = 0  <span class="c"># 实际出勤</span></pre>
+<p class="muted">之后 <code>comp = CompanyRecord(name="张三")</code>，就能 <code>comp.name</code>、<code>comp.actual</code> 一个点取一个值。</p>
+<div class="key">🔑 dataclass = 你自己设计的一种"数据格式"，把相关信息装一起。</div></div>
+<div class="sec"><h2>③ 在我们项目里</h2><div class="proj">
+<code>core/models.py</code> 里定义了一堆：<br>
+<code>CompanyRecord</code>（公司侧一个人）、<code>ClientMonthlyRecord</code>（客户侧一个人）、<code>ReconcileResult</code>（核对结果）。<br>
+解析时把每个人填成一个对象，核对时直接比两个对象的字段——清楚又不易错。
+</div></div>
+<div class="sec"><h2>④ 小结</h2>
+<div class="recap"><span class="chip">对象=打包好的一组信息</span><span class="chip">@dataclass 定义模板</span><span class="chip">用 对象.字段 取值</span></div>
+<div class="memo">🧠 记忆点：一个人 = 一个对象，点一下取一个属性</div></div>
+<div class="nav">上一课 ← <a href="lesson-03-1.html">3.1 项目分层</a>　|　下一课 → <a href="lesson-03-3.html">3.3 解析·年月识别</a>　|　<a href="index.html">📚 目录</a></div>
+</main></body></html>

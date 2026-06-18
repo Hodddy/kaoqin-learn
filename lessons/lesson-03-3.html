@@ -1,0 +1,20 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>第 3.3 课 · 解析数据·年月识别</title><link rel="stylesheet" href="lesson.css"></head><body>
+<header><div class="crumb">模块 3 · 读懂并能写"核对核心" ｜ 第 3 课</div><h1>3.3　解析公司数据（格式 A/B）与"年月识别"</h1><p>本课目标：理解程序怎么把杂乱的 Excel 读成整齐的对象。</p></header>
+<main>
+<div class="sec"><h2>① "解析" = 把表格读成对象</h2>
+<p>Excel 里是一行行单元格；解析就是<b>逐行读取、判断、归类</b>，填成上一课的 CompanyRecord 对象。</p></div>
+<div class="sec"><h2>② 公司数据有两种格式</h2>
+<ul class="points">
+<li><b>格式 A</b>：逐日打卡表（每天一行，看打卡判断出勤/请假/加班）。</li>
+<li><b>格式 B</b>：50+ 列的汇总报表（直接有"应出勤 O、实际出勤 Q"等列）。</li>
+<li>程序用 <code>detect_format</code> 按列数自动认出是 A 还是 B，再走对应解析。</li>
+</ul></div>
+<div class="sec"><h2>③ 年月识别（我们实战修过的大坑）</h2><div class="proj">
+不靠文件名、不靠固定列号，而是 <code>core/date_detect.py</code> <b>扫描单元格内容</b>，认出哪一列是日期/年月，支持 <code>2026-05</code> / <code>2026-05-01</code> / <code>2026-05-01 星期五</code> 等写法。<br>
+—— 这正是我们把真实 5 月数据"从 0 人修到 39 人"的关键改造。
+</div></div>
+<div class="sec"><h2>④ 小结</h2>
+<div class="recap"><span class="chip">解析=表格读成对象</span><span class="chip">格式A逐日/格式B汇总</span><span class="chip">年月靠内容识别</span></div>
+<div class="memo">🧠 记忆点：逐行读 → 判断归类 → 填成对象</div></div>
+<div class="nav">上一课 ← <a href="lesson-03-2.html">3.2 数据模型</a>　|　下一课 → <a href="lesson-03-4.html">3.4 核对规则·罚款</a>　|　<a href="index.html">📚 目录</a></div>
+</main></body></html>

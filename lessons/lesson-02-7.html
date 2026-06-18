@@ -1,0 +1,24 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>第 2.7 课 · 看懂报错·调试</title><link rel="stylesheet" href="lesson.css"></head><body>
+<header><div class="crumb">模块 2 · Python 编程基础 ｜ 第 7 课（模块收官）</div><h1>2.7　看懂报错 与 调试入门</h1><p>本课目标：报错不再慌——会读 Traceback、会用 print 找问题。</p></header>
+<main>
+<div class="sec"><h2>① 报错（Traceback）怎么读</h2>
+<p>报错是一长串，<b>从下往上看，最后一行最关键</b>：它告诉你"什么错 + 哪句话"。</p>
+<pre class="codeblk">Traceback (most recent call last):
+  File "hello.py", line 3, in &lt;module&gt;   <span class="c"># 出错在第 3 行</span>
+NameError: name 'nam' is not defined      <span class="c"># 错误类型 + 原因</span></pre>
+<div class="key">🔑 报错先看<b>最后一行</b>（什么错），再看上面的<b>文件:行号</b>（哪出的）。</div></div>
+<div class="sec"><h2>② 常见几种错（认脸）</h2>
+<table><thead><tr><th>错误</th><th>意思</th></tr></thead><tbody>
+<tr><td><code>NameError</code></td><td>用了一个没定义的名字（多半打错字）</td></tr>
+<tr><td><code>TypeError</code></td><td>类型不对（拿文字去做减法之类）</td></tr>
+<tr><td><code>IndexError</code></td><td>列表取第 N 个，但根本没那么多（越界）</td></tr>
+<tr><td><code>ModuleNotFoundError</code></td><td>import 的工具没装 / 名字错</td></tr>
+</tbody></table></div>
+<div class="sec"><h2>③ 最朴素也最好用：print 大法</h2>
+<p>不知道程序跑到哪、变量是啥？在可疑的地方加 <code>print(变量)</code>，跑一遍看它打印什么，立刻定位问题。我们排 GitHub 那个 bug，就是一步步打印、缩小范围找到的。</p></div>
+<div class="sec"><h2>④ 小结</h2>
+<div class="recap"><span class="chip">报错看最后一行</span><span class="chip">文件:行号 定位</span><span class="chip">print 大法找问题</span></div>
+<div class="memo">🧠 记忆点：别怕红字——倒着看，最后一行说人话</div></div>
+<div class="sec"><div class="done">🎉 模块 2（Python 基础）学完！你已经能看懂代码、会动手改了。</div></div>
+<div class="nav">上一课 ← <a href="lesson-02-6.html">2.6 文件·Excel</a>　|　下一模块 → <a href="lesson-03-1.html">3.1 项目分层</a>　|　<a href="index.html">📚 目录</a></div>
+</main></body></html>

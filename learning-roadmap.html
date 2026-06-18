@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>从零到部署 · 学习路线图</title>
+<style>
+  :root{--ink:#1f2330;--ink2:#586074;--ink3:#9aa0ae;--bg:#f4f6fa;--card:#fff;--line:#e6e9f0;}
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,"Segoe UI","Microsoft YaHei",Roboto,sans-serif;font-size:14.5px;line-height:1.65;}
+  header{background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;padding:26px 28px;}
+  header h1{margin:0;font-size:21px;}
+  header p{margin:8px 0 0;opacity:.92;font-size:13.5px;}
+  main{max-width:940px;margin:0 auto;padding:22px;}
+  .legend{display:flex;gap:16px;flex-wrap:wrap;color:var(--ink2);font-size:13px;margin-bottom:16px;}
+  .legend b{color:var(--ink);}
+  .mod{background:var(--card);border:1px solid var(--line);border-left:6px solid;border-radius:14px;
+    padding:16px 20px;margin-bottom:14px;box-shadow:0 1px 3px rgba(16,24,40,.04);}
+  .mod h2{margin:0 0 4px;font-size:16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+  .mod .badge{width:30px;height:30px;border-radius:9px;color:#fff;font-size:14px;font-weight:700;
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .mod .sub{color:var(--ink2);font-size:13px;margin:2px 0 12px;}
+  .lessons{display:grid;grid-template-columns:1fr 1fr;gap:8px 18px;}
+  .lesson{display:flex;gap:9px;align-items:baseline;font-size:13.5px;}
+  .lesson .id{font-weight:700;color:var(--ink3);min-width:30px;font-variant-numeric:tabular-nums;}
+  .lesson .t{color:var(--ink);} .lesson .t .h{color:var(--ink2);font-size:12.5px;}
+  .goal-flag{margin-left:auto;font-size:11.5px;font-weight:700;background:#fff8ec;color:#d97706;border:1px solid #fde68a;padding:2px 10px;border-radius:20px;}
+  @media(max-width:680px){.lessons{grid-template-columns:1fr;}}
+  .m1{border-left-color:#2563eb;} .m1 .badge{background:#2563eb;}
+  .m2{border-left-color:#0891b2;} .m2 .badge{background:#0891b2;}
+  .m3{border-left-color:#0d9488;} .m3 .badge{background:#0d9488;}
+  .m4{border-left-color:#16a34a;} .m4 .badge{background:#16a34a;}
+  .m5{border-left-color:#7c3aed;} .m5 .badge{background:#7c3aed;}
+  .m6{border-left-color:#db2777;} .m6 .badge{background:#db2777;}
+  .m7{border-left-color:#d97706;} .m7 .badge{background:#d97706;}
+  .m8{border-left-color:#475569;} .m8 .badge{background:#475569;}
+  .m7{background:linear-gradient(180deg,#fffdf8,#fff);}
+  .how{background:#eef2ff;border:1px solid #d9defb;border-radius:14px;padding:16px 20px;margin-bottom:18px;}
+  .how h3{margin:0 0 8px;font-size:14px;color:#4f46e5;}
+  .how ol{margin:0;padding-left:20px;color:var(--ink2);font-size:13.5px;}
+</style>
+</head>
+<body>
+<header>
+  <h1>🎓 从零到部署 · 学习路线图</h1>
+  <p>目标：从完全不懂 → 能独立写出并在大公司部署「考勤核对系统」这样的项目。全程以我们正在做的真实项目为教材。</p>
+</header>
+<main>
+
+  <div class="how">
+    <h3>每一课怎么上（固定套路，轻松跟）</h3>
+    <ol>
+      <li><b>概念</b>：用大白话讲清这节是什么</li>
+      <li><b>生活比喻</b>：先有画面感</li>
+      <li><b>在我们项目里长什么样</b>：直接看真实代码 / 真实场景</li>
+      <li><b>动手小练习</b>：你跟着敲几行，立刻有反馈</li>
+      <li><b>小结 + 一句话记忆点</b></li>
+    </ol>
+  </div>
+
+  <div class="legend">
+    <span>🟦 <b>地基</b></span><span>🟩 <b>编程/核心</b></span><span>🟪 <b>前端</b></span>
+    <span>🟥 <b>数据库</b></span><span>🟧 <b>部署（你的主目标）</b></span><span>⬛ <b>工程化</b></span>
+  </div>
+
+  <!-- 模块1 -->
+  <div class="mod m1">
+    <h2><span class="badge">1</span>计算机与网络入门 —— 打地基</h2>
+    <div class="sub">先搞懂"电脑在干嘛、机器之间怎么对话"，HTTP 这次彻底讲透。</div>
+    <div class="lessons">
+      <div class="lesson"><span class="id">1.1</span><span class="t">程序、文件、"运行"到底是什么</span></div>
+      <div class="lesson"><span class="id">1.2</span><span class="t">客户端 vs 服务器：谁请求、谁服务</span></div>
+      <div class="lesson"><span class="id">1.3</span><span class="t">机器怎么互相找到：IP、端口、域名、DNS</span></div>
+      <div class="lesson"><span class="id">1.4</span><span class="t">HTTP 深入：请求/响应、方法、状态码、头、body</span></div>
+    </div>
+  </div>
+
+  <!-- 模块2 -->
+  <div class="mod m2">
+    <h2><span class="badge">2</span>Python 编程基础 —— 拿起工具</h2>
+    <div class="sub">从零学会写代码，每个知识点都用项目里的真实片段练。</div>
+    <div class="lessons">
+      <div class="lesson"><span class="id">2.1</span><span class="t">Python 是什么 + 用 uv 安装与运行</span></div>
+      <div class="lesson"><span class="id">2.2</span><span class="t">变量、数字、字符串、布尔</span></div>
+      <div class="lesson"><span class="id">2.3</span><span class="t">列表、字典（项目里到处都是）</span></div>
+      <div class="lesson"><span class="id">2.4</span><span class="t">条件判断、循环</span></div>
+      <div class="lesson"><span class="id">2.5</span><span class="t">函数、模块、import</span></div>
+      <div class="lesson"><span class="id">2.6</span><span class="t">读写文件 + 操作 Excel（openpyxl/xlrd）</span></div>
+      <div class="lesson"><span class="id">2.7</span><span class="t">看懂报错、调试入门</span></div>
+    </div>
+  </div>
+
+  <!-- 模块3 -->
+  <div class="mod m3">
+    <h2><span class="badge">3</span>读懂并能写"核对核心"</h2>
+    <div class="sub">把项目最值钱的业务逻辑吃透，能自己改/扩展。</div>
+    <div class="lessons">
+      <div class="lesson"><span class="id">3.1</span><span class="t">项目分层：core/clients/app/web 为什么这么分</span></div>
+      <div class="lesson"><span class="id">3.2</span><span class="t">数据模型 dataclass：把一行考勤变成对象</span></div>
+      <div class="lesson"><span class="id">3.3</span><span class="t">解析公司数据（格式A/B）、年月识别</span></div>
+      <div class="lesson"><span class="id">3.4</span><span class="t">核对规则与罚款逻辑</span></div>
+      <div class="lesson"><span class="id">3.5</span><span class="t">插件化：怎么扩展一个新客户</span></div>
+    </div>
+  </div>
+
+  <!-- 模块4 -->
+  <div class="mod m4">
+    <h2><span class="badge">4</span>做成 Web 后端</h2>
+    <div class="sub">用 FastAPI 把核心包成"网络服务"，能被浏览器调用。</div>
+    <div class="lessons">
+      <div class="lesson"><span class="id">4.1</span><span class="t">Web 框架是什么、为什么用 FastAPI</span></div>
+      <div class="lesson"><span class="id">4.2</span><span class="t">写第一个接口：GET /api/clients</span></div>
+      <div class="lesson"><span class="id">4.3</span><span class="t">接收上传文件：POST /api/reconcile</span></div>
+      <div class="lesson"><span class="id">4.4</span><span class="t">返回 JSON、文件下载、状态码与报错</span></div>
+      <div class="lesson"><span class="id">4.5</span><span class="t">复用核对核心：服务层 run_reconcile</span></div>
+    </div>
+  </div>
+
+  <!-- 模块5 -->
+  <div class="mod m5">
+    <h2><span class="badge">5</span>前端三件套</h2>
+    <div class="sub">HTML/CSS/JS，把界面做出来、把接口连起来。</div>
+    <div class="lessons">
+      <div class="lesson"><span class="id">5.1</span><span class="t">HTML 结构 · CSS 样式 · JS 行为</span></div>
+      <div class="lesson"><span class="id">5.2</span><span class="t">表单、文件选择、按钮</span></div>
+      <div class="lesson"><span class="id">5.3</span><span class="t">用 fetch 调接口、把结果画成表格</span></div>
+      <div class="lesson"><span class="id">5.4</span><span class="t">样式与主题（我们做的 10 套皮肤）</span></div>
+    </div>
+  </div>
+
+  <!-- 模块6 -->
+  <div class="mod m6">
+    <h2><span class="badge">6</span>数据库与"历史记录"</h2>
+    <div class="sub">让项目能"记住东西"，实现界面预留的历史记录功能。</div>
+    <div class="lessons">
+      <div class="lesson"><span class="id">6.1</span><span class="t">数据库是什么、为什么需要</span></div>
+      <div class="lesson"><span class="id">6.2</span><span class="t">SQL 与 SQLite 入门</span></div>
+      <div class="lesson"><span class="id">6.3</span><span class="t">实战：给项目加"保存历史核对结果"</span></div>
+    </div>
+  </div>
+
+  <!-- 模块7 -->
+  <div class="mod m7">
+    <h2><span class="badge">7</span>企业级部署 —— 上服务器、对接 IT<span class="goal-flag">★ 你的主目标</span></h2>
+    <div class="sub">从"自己电脑能跑"到"在大公司服务器上稳定对外服务"，并能和 IT 部门专业对接。</div>
+    <div class="lessons">
+      <div class="lesson"><span class="id">7.1</span><span class="t">本机 vs 服务器：到底差在哪</span></div>
+      <div class="lesson"><span class="id">7.2</span><span class="t">让服务常驻：systemd / 进程守护（告别黑窗口）</span></div>
+      <div class="lesson"><span class="id">7.3</span><span class="t">反向代理 Nginx + HTTPS 证书</span></div>
+      <div class="lesson"><span class="id">7.4</span><span class="t">网络：内网/公网、端口、防火墙、白名单、VPN</span></div>
+      <div class="lesson"><span class="id">7.5</span><span class="t">安全与鉴权：登录、token、最小权限</span></div>
+      <div class="lesson"><span class="id">7.6</span><span class="t">Docker 容器化（大公司常要）</span></div>
+      <div class="lesson"><span class="id">7.7</span><span class="t"><b>与 IT 部门交涉清单</b>：你要什么、给什么、怎么对接</span></div>
+    </div>
+  </div>
+
+  <!-- 模块8 -->
+  <div class="mod m8">
+    <h2><span class="badge">8</span>工程化与长期维护</h2>
+    <div class="sub">让项目专业、可协作、能长期跑。</div>
+    <div class="lessons">
+      <div class="lesson"><span class="id">8.1</span><span class="t">Git / GitHub 协作（你已在用）</span></div>
+      <div class="lesson"><span class="id">8.2</span><span class="t">依赖与配置、密钥管理</span></div>
+      <div class="lesson"><span class="id">8.3</span><span class="t">日志、监控、备份、上线检查单</span></div>
+    </div>
+  </div>
+
+</main>
+</body>
+</html>

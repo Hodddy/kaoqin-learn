@@ -1,0 +1,22 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>第 7.1 课 · 本机 vs 服务器</title><link rel="stylesheet" href="lesson.css"></head><body>
+<header><div class="crumb">模块 7 · 企业级部署（★主目标）｜ 第 1 课</div><h1>7.1　本机 vs 服务器：到底差在哪</h1><p>本课目标：理解"自己电脑能跑"和"上服务器给全公司用"差了什么。</p></header>
+<main>
+<div class="sec"><h2>① 一句话</h2>
+<p>本机版是"自己用一下"；服务器版是"一台一直开机、全公司随时来用"的正式服务。差别全在"稳定、长期、多人、可访问"上。</p></div>
+<div class="sec"><h2>② 关键差异</h2>
+<table><thead><tr><th>方面</th><th>本机（你电脑）</th><th>服务器</th></tr></thead><tbody>
+<tr><td>开机</td><td>你关机就没了</td><td>7×24 一直开</td></tr>
+<tr><td>谁能访问</td><td>只有你 / 同局域网</td><td>全公司（甚至公网）</td></tr>
+<tr><td>怎么跑</td><td>黑窗口，关了就停</td><td>进程守护，崩了自动拉起、开机自启</td></tr>
+<tr><td>地址</td><td>127.0.0.1:8000</td><td>域名 + HTTPS</td></tr>
+<tr><td>安全</td><td>没人管</td><td>要登录、要防火墙、要证书</td></tr>
+</tbody></table>
+<div class="key">🔑 上服务器，要解决的就是这张表右边那一列——这正是模块 7 后面几课。</div></div>
+<div class="sec"><h2>③ 跟我们项目的关系</h2><div class="proj">
+现在你双击 bat 跑的是"本机版"。要给公司用，就得把同一个 <code>web.server:app</code> 搬到一台公司服务器上，按右边那列配齐——逻辑代码<b>一行都不用改</b>，改的全是"运行环境"。
+</div></div>
+<div class="sec"><h2>④ 小结</h2>
+<div class="recap"><span class="chip">本机=临时自用</span><span class="chip">服务器=长期多人</span><span class="chip">改的是环境不是代码</span></div>
+<div class="memo">🧠 记忆点：部署 = 把同一个程序，搬到一台"一直开、谁都能来"的机器上</div></div>
+<div class="nav">上一模块 ← <a href="lesson-06-3.html">6.3 历史记录</a>　|　下一课 → <a href="lesson-07-2.html">7.2 进程守护</a>　|　<a href="index.html">📚 目录</a></div>
+</main></body></html>

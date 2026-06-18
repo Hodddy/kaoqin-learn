@@ -1,0 +1,26 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>第 7.2 课 · 进程守护 systemd</title><link rel="stylesheet" href="lesson.css"></head><body>
+<header><div class="crumb">模块 7 · 企业级部署（★主目标）｜ 第 2 课</div><h1>7.2　让服务常驻：systemd / 进程守护</h1><p>本课目标：理解"为什么不能靠黑窗口"，怎么让服务稳稳一直跑。</p></header>
+<main>
+<div class="sec"><h2>① 问题：黑窗口一关就停</h2>
+<p>本机版关掉黑窗口、注销、重启，服务就没了。服务器上不能这样——要它<b>开机自启、崩溃自动重启、后台常驻</b>。</p></div>
+<div class="sec"><h2>② 解决：进程守护（Linux 用 systemd）</h2>
+<p>systemd 是 Linux 自带的"服务管家"。你写一个小配置文件告诉它"怎么启动我的程序"，它就负责常驻、看护、自启。</p>
+<pre class="codeblk"><span class="c"># /etc/systemd/system/kaoqin.service</span>
+[Service]
+ExecStart=uvicorn web.server:app --host 0.0.0.0 --port 8000
+Restart=always        <span class="c"># 崩了自动拉起</span>
+[Install]
+WantedBy=multi-user.target  <span class="c"># 开机自启</span></pre>
+<div class="key">🔑 systemd = 服务器版的"自动启动 + 永不下班 + 摔倒自己爬起来"。</div></div>
+<div class="sec"><h2>③ 常用命令（了解即可）</h2>
+<ul class="points">
+<li><code>systemctl start kaoqin</code> 启动、<code>stop</code> 停止、<code>restart</code> 重启</li>
+<li><code>systemctl enable kaoqin</code> 开机自启</li>
+<li><code>systemctl status kaoqin</code> 看是否在跑</li>
+</ul>
+<p class="muted">（Windows 服务器可用"任务计划/NSSM"达到类似效果，但生产环境绝大多数是 Linux。）</p></div>
+<div class="sec"><h2>④ 小结</h2>
+<div class="recap"><span class="chip">别靠黑窗口</span><span class="chip">systemd 守护进程</span><span class="chip">自启+自动重启+常驻</span></div>
+<div class="memo">🧠 记忆点：交给 systemd，它替你 7×24 看着服务</div></div>
+<div class="nav">上一课 ← <a href="lesson-07-1.html">7.1 本机vs服务器</a>　|　下一课 → <a href="lesson-07-3.html">7.3 Nginx+HTTPS</a>　|　<a href="index.html">📚 目录</a></div>
+</main></body></html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>第 4.5 课 · 复用服务层</title><link rel="stylesheet" href="lesson.css"></head><body>
+<header><div class="crumb">模块 4 · 做成 Web 后端 ｜ 第 5 课（模块收官）</div><h1>4.5　复用核对核心：服务层 run_reconcile</h1><p>本课目标：理解后端怎么"不重写逻辑"，直接调用核心。</p></header>
+<main>
+<div class="sec"><h2>① 后端只"编排"，不"算账"</h2>
+<p>Web 接口收到文件后，<b>不自己写核对逻辑</b>，而是调用 <code>core/service.py</code> 里的 <code>run_reconcile(...)</code>——那是桌面版也在用的同一套核心。</p>
+<div class="key">🔑 后端 = 收发员；算账的活外包给"服务层"。一套逻辑，两个外壳共用。</div></div>
+<div class="sec"><h2>② 进度怎么传出来：ProgressReporter</h2>
+<p>核对过程中要报"正在处理 X 月""完成 N 人"。服务层用一个<b>回调</b>（ProgressReporter）把这些消息抛出来：桌面版接成界面日志，Web 版收集成 <code>logs</code> 随响应返回。同一套核心，进度各接各的。</p></div>
+<div class="sec"><h2>③ 在我们项目里</h2><div class="proj">
+这正是我们做 Web 版的第一步——先把对账主循环从桌面界面里抽成 <code>run_reconcile</code>（脱离 PySide6），桌面/批测试/Web 三处共用。<br>
+所以 <code>web/server.py</code> 的核心就一句：<code>rep = run_reconcile(公司, 客户, 客户key, 月份, ...)</code>。
+</div></div>
+<div class="sec"><h2>④ 小结</h2>
+<div class="recap"><span class="chip">后端只编排</span><span class="chip">逻辑调 run_reconcile</span><span class="chip">进度走回调</span><span class="chip">一套核心多个外壳</span></div>
+<div class="memo">🧠 记忆点：后端当收发员，核心(服务层)当大厨，绝不重复造</div></div>
+<div class="sec"><div class="done">🎉 模块 4 学完！你已经理解"把核心包成网络服务"的全过程。</div></div>
+<div class="nav">上一课 ← <a href="lesson-04-4.html">4.4 返回·下载</a>　|　下一模块 → <a href="lesson-05-1.html">5.1 前端三件套</a>　|　<a href="index.html">📚 目录</a></div>
+</main></body></html>

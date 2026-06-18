@@ -1,0 +1,24 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>第 2.4 课 · 条件·循环</title><link rel="stylesheet" href="lesson.css"></head><body>
+<header><div class="crumb">模块 2 · Python 编程基础 ｜ 第 4 课</div><h1>2.4　条件判断 与 循环</h1><p>本课目标：让程序"会拐弯"（满足才做）和"会重复"（一批一批做）。</p></header>
+<main>
+<div class="sec"><h2>① 条件 if / else：满足才做</h2>
+<pre class="codeblk">if 出勤 &lt; 应出勤:
+    print("有缺勤")
+else:
+    print("全勤")</pre>
+<p class="muted">"如果…就…，否则…"。注意冒号 <code>:</code> 和下面那行的<b>缩进</b>（空格），Python 靠缩进表示"属于这一块"。</p></div>
+<div class="sec"><h2>② 循环 for：一个一个处理</h2>
+<pre class="codeblk">for m in ["2026-05", "2026-06"]:
+    print("正在处理", m)
+<span class="c"># 会依次打印两行</span></pre>
+<div class="key">🔑 if = 拐弯（做不做），for = 重复（对一堆东西逐个做）。</div></div>
+<div class="sec"><h2>③ 在我们项目里</h2><div class="proj">
+<code>for cname, cs in client_monthly.items():</code> —— <b>逐个员工</b>核对（循环）。<br>
+&nbsp;&nbsp;<code>if not comp:</code> —— 如果公司数据里没这个人，就标异常（条件）。<br>
+整个"核对每个人"就是"循环 + 条件"的组合。
+</div></div>
+<div class="sec"><h2>④ 小结</h2>
+<div class="recap"><span class="chip">if/else 条件</span><span class="chip">for 循环</span><span class="chip">冒号+缩进表示"这一块"</span></div>
+<div class="memo">🧠 记忆点：if 决定做不做，for 把一堆东西挨个做一遍</div></div>
+<div class="nav">上一课 ← <a href="lesson-02-3.html">2.3 列表·字典</a>　|　下一课 → <a href="lesson-02-5.html">2.5 函数·模块</a>　|　<a href="index.html">📚 目录</a></div>
+</main></body></html>

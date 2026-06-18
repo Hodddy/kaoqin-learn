@@ -1,0 +1,17 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>第 8.2 课 · 依赖·配置·密钥</title><link rel="stylesheet" href="lesson.css"></head><body>
+<header><div class="crumb">模块 8 · 工程化与长期维护 ｜ 第 2 课</div><h1>8.2　依赖、配置、密钥管理</h1><p>本课目标：让项目"在别人机器/服务器上也能装起来、好维护、不泄密"。</p></header>
+<main>
+<div class="sec"><h2>① 依赖：把"用了哪些库"写下来</h2>
+<p>项目用了 fastapi、openpyxl、xlrd 等"别人的库"，这些叫<b>依赖</b>。要列个清单（如 <code>requirements.txt</code>），别人一条命令就能装齐，不用猜。</p></div>
+<div class="sec"><h2>② 配置：会变的值别写死</h2>
+<p>端口、路径、节假日这类会变的，集中放配置里（我们的客户配置在 <code>config.py</code>）。换环境只改配置，不改逻辑代码。</p></div>
+<div class="sec"><h2>③ 密钥：绝不进代码、不进 Git</h2><div class="proj">
+密码、token、证书这类秘密，<b>用环境变量</b>或专门的密钥管理来传，<b>绝不硬写进代码、绝不提交到 GitHub</b>（我们那个 <code>.gitignore</code> 就把真实数据挡在库外）。<br>
+反例提醒：你那个 GitHub PAT 在聊天里露过明文，<b>用完一定要吊销</b>——这就是密钥泄露的真实场景。
+</div>
+<div class="key">🔑 依赖列清单、配置别写死、密钥别外露——三件让项目"专业又安全"的事。</div></div>
+<div class="sec"><h2>④ 小结</h2>
+<div class="recap"><span class="chip">依赖→requirements清单</span><span class="chip">会变的值进配置</span><span class="chip">密钥走环境变量</span><span class="chip">秘密绝不进Git</span></div>
+<div class="memo">🧠 记忆点：清单装依赖、配置存变量、密钥永不上库</div></div>
+<div class="nav">上一课 ← <a href="lesson-08-1.html">8.1 Git/GitHub</a>　|　下一课 → <a href="lesson-08-3.html">8.3 日志·监控·备份</a>　|　<a href="index.html">📚 目录</a></div>
+</main></body></html>

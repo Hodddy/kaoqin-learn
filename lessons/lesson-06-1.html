@@ -1,0 +1,21 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>第 6.1 课 · 数据库是什么·为什么</title><link rel="stylesheet" href="lesson.css"></head><body>
+<header><div class="crumb">模块 6 · 数据库与历史记录 ｜ 第 1 课</div><h1>6.1　数据库是什么 · 为什么需要</h1><p>本课目标：搞懂数据库到底是干嘛的，什么时候才用它。</p></header>
+<main>
+<div class="sec"><h2>① 数据库 = 长期保存数据的"仓库"</h2>
+<p>程序运行时数据在内存里，<b>一关就没</b>。数据库是个专门"长期存数据、还能快速查"的仓库，关机断电都在。</p>
+<div class="key">🔑 内存=临时台面（一关就清空）；数据库=带货架的仓库（长期存、能翻）。</div></div>
+<div class="sec"><h2>② 它比"存成文件"强在哪</h2>
+<ul class="points">
+<li>能<b>按条件快速查</b>（"查张三 5 月所有异常"），文件做不到这么灵活。</li>
+<li>能<b>多人同时读写</b>不乱。</li>
+<li>有结构（表/行/列），数据整齐。</li>
+</ul></div>
+<div class="sec"><h2>③ 本项目现在为什么没有</h2><div class="proj">
+我们是"算完即走"：上传→算→给结果→临时文件扔掉，<b>不记历史</b>，所以暂时不用数据库。<br>
+<b>什么时候要加</b>：想保存"历史核对记录"（界面左边那个灰色"历史记录"）、多人登录、在线管多客户配置——这些都要"长期记住东西"。
+</div></div>
+<div class="sec"><h2>④ 小结</h2>
+<div class="recap"><span class="chip">数据库=长期存的仓库</span><span class="chip">能快速按条件查</span><span class="chip">要"记住东西"才需要</span></div>
+<div class="memo">🧠 记忆点：要长期记 + 要灵活查 = 该上数据库</div></div>
+<div class="nav">上一模块 ← <a href="lesson-05-4.html">5.4 样式主题</a>　|　下一课 → <a href="lesson-06-2.html">6.2 SQL·SQLite</a>　|　<a href="index.html">📚 目录</a></div>
+</main></body></html>

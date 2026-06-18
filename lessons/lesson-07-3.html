@@ -1,0 +1,25 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>第 7.3 课 · Nginx 反代 + HTTPS</title><link rel="stylesheet" href="lesson.css"></head><body>
+<header><div class="crumb">模块 7 · 企业级部署（★主目标）｜ 第 3 课</div><h1>7.3　反向代理 Nginx + HTTPS 证书</h1><p>本课目标：理解为什么要在程序前面再加一层 Nginx，以及 HTTPS 是什么。</p></header>
+<main>
+<div class="sec"><h2>① 反向代理 = 程序前面的"前台接待"</h2>
+<p>不让用户直接访问你的 uvicorn，而是前面摆一个 <b>Nginx</b> 当门面：用户先到 Nginx，Nginx 再转给后面的程序。</p>
+<div class="flow">
+<div class="n"><div class="e">🌍</div><div class="lab">用户</div></div><div class="ar">→</div>
+<div class="n"><div class="e">🛡️</div><div class="lab">Nginx</div><div class="sm">前台/反代</div></div><div class="ar">→</div>
+<div class="n"><div class="e">⚙️</div><div class="lab">uvicorn</div><div class="sm">你的程序</div></div>
+</div></div>
+<div class="sec"><h2>② Nginx 帮你干什么</h2>
+<ul class="points">
+<li><b>HTTPS 加密</b>：在 Nginx 上装证书，用户到 Nginx 这段是加密的（后面讲）。</li>
+<li>用标准端口 443，用户不用记 :8000。</li>
+<li>挡一挡攻击、限流、配多个服务。</li>
+</ul></div>
+<div class="sec"><h2>③ HTTPS 是什么</h2><div class="proj">
+HTTP 是明文（传输能被看到）；<b>HTTPS = HTTP + 加密</b>，靠一张"证书"建立加密通道，浏览器显示一把🔒小锁。证书可找 IT 申请，或用免费的 Let's Encrypt（Caddy 还能自动办证）。<br>
+大公司基本<b>强制 HTTPS</b>，这点你跟 IT 谈时会被要求。
+</div></div>
+<div class="sec"><h2>④ 小结</h2>
+<div class="recap"><span class="chip">Nginx=前台/反向代理</span><span class="chip">HTTPS=加密的HTTP</span><span class="chip">证书建加密通道🔒</span></div>
+<div class="memo">🧠 记忆点：Nginx 当门面 + 上证书 = 安全、专业的对外入口</div></div>
+<div class="nav">上一课 ← <a href="lesson-07-2.html">7.2 进程守护</a>　|　下一课 → <a href="lesson-07-4.html">7.4 网络·防火墙</a>　|　<a href="index.html">📚 目录</a></div>
+</main></body></html>

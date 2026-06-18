@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>考勤核对系统 · 离职交接清单</title>
+<style>
+  :root{--ink:#1f2330;--ink2:#586074;--ink3:#9aa0ae;--bg:#f4f6fa;--card:#fff;--line:#e6e9f0;--indigo:#4f46e5;--green:#16a34a;--amber:#d97706;--red:#dc2626;}
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,"Segoe UI","Microsoft YaHei",Roboto,sans-serif;font-size:14.5px;line-height:1.7;}
+  header{background:linear-gradient(135deg,#334155,#475569);color:#fff;padding:24px 28px;}
+  header h1{margin:0;font-size:20px;} header p{margin:8px 0 0;opacity:.9;font-size:13px;}
+  main{max-width:900px;margin:0 auto;padding:22px;}
+  .sec{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 22px;margin-bottom:14px;box-shadow:0 1px 3px rgba(16,24,40,.04);}
+  .sec h2{margin:0 0 10px;font-size:16px;display:flex;align-items:center;gap:8px;}
+  code{background:#f1f3f8;border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-size:12.5px;font-family:Consolas,monospace;color:var(--ink);}
+  pre{margin:8px 0;padding:12px 14px;background:#1e2a3a;color:#a5d6a7;border-radius:10px;font-family:Consolas,monospace;font-size:12.5px;line-height:1.6;white-space:pre-wrap;overflow:auto;}
+  table{width:100%;border-collapse:collapse;} th{text-align:left;font-size:12px;color:var(--ink3);padding:7px 10px;border-bottom:1px solid var(--line);} td{padding:7px 10px;border-bottom:1px solid #eef0f4;font-size:13.5px;vertical-align:top;}
+  .fill{background:#fff8ec;border:1px dashed var(--amber);border-radius:6px;padding:1px 8px;color:#92400e;font-size:12.5px;}
+  ul{margin:6px 0;padding-left:20px;} li{margin:4px 0;color:var(--ink2);} li b{color:var(--ink);}
+  .ck .item{display:flex;align-items:flex-start;gap:10px;padding:7px 0;border-bottom:1px dashed #eef0f4;}
+  .ck .item:last-child{border-bottom:none;}
+  .ck input{margin-top:4px;width:17px;height:17px;accent-color:var(--green);cursor:pointer;}
+  .ck .item.done span{text-decoration:line-through;color:var(--ink3);}
+  .prog{margin-top:12px;background:rgba(255,255,255,.18);border-radius:20px;padding:6px 14px;display:inline-block;font-size:13px;font-weight:700;}
+  .note{background:#eef2ff;border:1px solid #d9defb;border-radius:10px;padding:12px 16px;font-size:13px;color:var(--ink2);}
+  .nav{text-align:center;color:var(--ink3);font-size:13px;margin-top:14px;} .nav a{color:var(--indigo);text-decoration:none;}
+</style>
+</head>
+<body>
+<header>
+  <h1>📋 考勤核对系统 · 离职交接清单</h1>
+  <p>给接手人（IT / 同事）：照这份就能独立接管、部署、更新本系统。黄色 <span class="fill">【待填】</span> 处部署时补上。</p>
+  <div class="prog" id="prog">交接确认 0 / 0</div>
+</header>
+<main>
+
+  <div class="sec"><h2>① 这是什么系统</h2>
+  <p>一个把「公司考勤」与「客户考勤」逐月对账的工具：上传两份 Excel → 自动核对应出勤/出勤/加班/请假、算迟到漏签罚款 → 输出处理后的结果表（异常行高亮）。有两种形态：<b>桌面 EXE 版</b>（单机）和 <b>Web 版</b>（浏览器，FastAPI）。核对逻辑两版共用。</p></div>
+
+  <div class="sec"><h2>② 代码与文档在哪</h2>
+  <table><tbody>
+  <tr><td><b>代码仓库</b></td><td>GitHub：<code>git@github.com:Hodddy/Hengtai.git</code>　分支 <code>main</code></td></tr>
+  <tr><td><b>接手前先要</b></td><td>让 <span class="fill">【待填：原作者/管理员】</span> 把你加为该仓库协作者（写权限）</td></tr>
+  <tr><td><b>部署文档</b></td><td><code>docs/web-deployment.md</code>（本机/局域网/生产三种部署 + 排错）</td></tr>
+  <tr><td><b>架构图</b></td><td><code>docs/web-architecture.html</code>（分层 + 物理拓扑）</td></tr>
+  <tr><td><b>学习资料</b></td><td><code>docs/lessons/index.html</code>（从零到部署的全套课件，含本系统讲解）</td></tr>
+  </tbody></table></div>
+
+  <div class="sec"><h2>③ 项目结构速览</h2>
+  <table><tbody>
+  <tr><td><code>core/</code></td><td>与客户无关的共享核心（解析、年月识别、核对服务层）</td></tr>
+  <tr><td><code>clients/client_a/</code></td><td>客户A的读取/核对规则/罚款/写出 + <b>配置 config.py</b>（节假日、补班日）</td></tr>
+  <tr><td><code>web/</code></td><td>Web 版：<code>server.py</code>(后端) + <code>static/index.html</code>(前端)</td></tr>
+  <tr><td><code>app/</code></td><td>桌面版界面；<code>releases/</code> 里是打包好的 exe</td></tr>
+  </tbody></table></div>
+
+  <div class="sec"><h2>④ 怎么跑起来</h2>
+  <p><b>本机/服务器跑 Web 版</b>（Python 一律用 uv）：</p>
+  <pre>cd 项目目录
+uv run python -m uvicorn web.server:app --host 0.0.0.0 --port 8000
+# 浏览器访问 http://服务器IP:8000</pre>
+  <p>依赖：<code>fastapi</code>、<code>uvicorn</code>、<code>python-multipart</code>、<code>openpyxl</code>、<code>xlrd</code>（装法见部署文档）。</p></div>
+
+  <div class="sec"><h2>⑤ 怎么更新上线（最常做）</h2>
+  <pre>① 在 GitHub 上改代码（或本地改完 git push）
+② 服务器上：git pull            # 拉最新代码
+③ 重启服务：systemd 的话 → sudo systemctl restart kaoqin
+            （或重新 docker build / docker run）
+④ 用户刷新页面即新版</pre>
+  <div class="note">💡 改业务规则最常改 <code>clients/client_a/config.py</code>（每月节假日/补班日）和 <code>clients/client_a/</code> 下的核对/罚款逻辑。</div></div>
+
+  <div class="sec"><h2>⑥ 配置 / 数据 / 密钥</h2>
+  <ul>
+  <li><b>配置</b>：节假日、补班日在 <code>clients/client_a/config.py</code>，每月按实际日历改。</li>
+  <li><b>真实考勤数据</b>：是敏感数据，<b>已被 .gitignore 挡在仓库外</b>，不进 GitHub。</li>
+  <li><b>密钥/密码</b>：如果接了登录/SSO，密钥放环境变量，<b>绝不写进代码、不进 Git</b>。</li>
+  <li><b>数据库</b>（如已加历史记录）：备份位置 <span class="fill">【待填】</span>，定期备份。</li>
+  </ul></div>
+
+  <div class="sec"><h2>⑦ 服务器与运维信息（部署后补全）</h2>
+  <table><tbody>
+  <tr><td>服务器</td><td><span class="fill">【待填：IP / 主机名 / 怎么登录(SSH)】</span></td></tr>
+  <tr><td>访问地址</td><td><span class="fill">【待填：域名，如 kaoqin.公司.com】</span></td></tr>
+  <tr><td>对内端口</td><td><span class="fill">【待填：如 8000】</span>　对外：443(HTTPS，Nginx)</td></tr>
+  <tr><td>进程守护</td><td><span class="fill">【待填：systemd 服务名，如 kaoqin】</span></td></tr>
+  <tr><td>日志位置</td><td><span class="fill">【待填：如 journalctl -u kaoqin / 某日志文件】</span></td></tr>
+  <tr><td>HTTPS 证书</td><td><span class="fill">【待填：谁发的、到期时间、怎么续】</span></td></tr>
+  <tr><td>备份</td><td><span class="fill">【待填：备份什么、放哪、多久一次】</span></td></tr>
+  </tbody></table></div>
+
+  <div class="sec"><h2>⑧ 出问题怎么查</h2>
+  <ul>
+  <li>页面打不开 → 先看服务在不在跑（<code>systemctl status</code>）、端口/防火墙有没有放行。</li>
+  <li>核对结果不对 → 看「运行日志」、对一下 <code>config.py</code> 当月节假日是否配对。</li>
+  <li>报错 → 看服务器日志，倒着看最后一行（错误类型 + 文件:行号）。</li>
+  </ul></div>
+
+  <div class="sec"><h2>⑨ 联系人</h2>
+  <table><tbody>
+  <tr><td>原开发者（我）</td><td><span class="fill">【待填：姓名 / 微信 / 邮箱】</span>（离校后仅通过 GitHub 协助改代码，不再接触服务器）</td></tr>
+  <tr><td>IT / 基础设施</td><td><span class="fill">【待填：负责服务器/网络/证书的人】</span></td></tr>
+  </tbody></table></div>
+
+  <div class="sec ck"><h2>✅ 交接确认清单（双方一起勾）</h2>
+  <div class="item"><input type="checkbox" data-id="h1"><span>接手人已被加为 GitHub 仓库协作者，能拉/推代码</span></div>
+  <div class="item"><input type="checkbox" data-id="h2"><span>接手人已在自己机器上把项目<b>跑通一次</b>（本机 Web 版能打开）</span></div>
+  <div class="item"><input type="checkbox" data-id="h3"><span>已<b>当面演示一次"改代码 → 部署 → 生效"</b>的完整更新流程</span></div>
+  <div class="item"><input type="checkbox" data-id="h4"><span>接手人知道 <code>config.py</code> 在哪、每月怎么改节假日</span></div>
+  <div class="item"><input type="checkbox" data-id="h5"><span>第 ⑦ 节服务器/运维信息已<b>全部填实</b>（IP、域名、端口、日志、证书、备份）</span></div>
+  <div class="item"><input type="checkbox" data-id="h6"><span>HTTPS 证书续期方式、数据备份方式已交接给 IT</span></div>
+  <div class="item"><input type="checkbox" data-id="h7"><span>已约定：以后<b>谁负责改软件、谁负责管服务器</b></span></div>
+  <div class="item"><input type="checkbox" data-id="h8"><span>原作者离职后，<b>系统能在没有原作者参与下独立更新</b>（不依赖你的 VPN/账号）</span></div>
+  </div>
+
+  <div class="note" style="margin-bottom:14px">🧭 <b>给你（原作者）的提醒</b>：离校前把第 ⑦ 节填满、把第 ③ 项流程当面演示给接手人一遍，这是"系统不依赖你"的关键。你之后想帮忙，走"GitHub 改代码 → 内部人部署"即可，不需要 VPN。</div>
+
+  <div class="nav"><a href="deploy-checklist.html">→ 上线清单</a>　|　<a href="index.html">📚 回到目录</a></div>
+</main>
+<script>
+  const boxes=[...document.querySelectorAll('.ck input')];
+  function save(){const m={};boxes.forEach(b=>m[b.dataset.id]=b.checked);localStorage.setItem('kq_handoff',JSON.stringify(m));}
+  function refresh(){let d=0;boxes.forEach(b=>{b.closest('.item').classList.toggle('done',b.checked);if(b.checked)d++;});document.getElementById('prog').textContent=`交接确认 ${d} / ${boxes.length}`;}
+  (function(){const r=localStorage.getItem('kq_handoff');if(r){try{const m=JSON.parse(r);boxes.forEach(b=>b.checked=!!m[b.dataset.id]);}catch(e){}}boxes.forEach(b=>b.addEventListener('change',()=>{save();refresh();}));refresh();})();
+</script>
+</body>
+</html>

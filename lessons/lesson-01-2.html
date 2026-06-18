@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第 1.2 课 · 客户端 vs 服务器</title>
+<style>
+  :root{--ink:#1f2330;--ink2:#586074;--ink3:#9aa0ae;--bg:#f4f6fa;--card:#fff;--line:#e6e9f0;
+    --blue:#2563eb;--blue-s:#eff6ff;--indigo:#4f46e5;--indigo-s:#eef2ff;--green:#16a34a;--green-s:#f0fdf4;--amber:#d97706;--teal:#0d9488;--teal-s:#effdfa;}
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI","Microsoft YaHei",Roboto,sans-serif;font-size:15px;line-height:1.75;}
+  header{background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;padding:24px 28px;}
+  .crumb{font-size:12px;opacity:.85;} header h1{margin:4px 0 0;font-size:22px;} header p{margin:8px 0 0;opacity:.92;font-size:13.5px;}
+  main{max-width:880px;margin:0 auto;padding:22px;}
+  .sec{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 24px;margin-bottom:16px;box-shadow:0 1px 3px rgba(16,24,40,.04);}
+  .sec h2{margin:0 0 14px;font-size:17px;display:flex;align-items:center;gap:9px;}
+  .muted{color:var(--ink2);} code{background:#f1f3f8;border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-size:13px;font-family:Consolas,monospace;}
+  .keyline{background:#fffbeb;border:1px solid #fde68a;border-left:5px solid var(--amber);border-radius:10px;padding:12px 16px;margin-top:14px;font-weight:700;color:#92400e;}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .box{border-radius:12px;padding:16px;border:1px solid;text-align:center;}
+  .b1{background:var(--blue-s);border-color:#cfe0fb;} .b1 .t{color:var(--blue);}
+  .b2{background:var(--indigo-s);border-color:#d9defb;} .b2 .t{color:var(--indigo);}
+  .box .e{font-size:34px;} .box .t{font-weight:800;font-size:16px;margin:6px 0 4px;} .box .d{font-size:13px;color:var(--ink2);}
+  @media(max-width:640px){.two{grid-template-columns:1fr;}}
+  .flow{display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap;text-align:center;}
+  .node{flex:1;min-width:120px;} .node .e{font-size:34px;} .node .lab{font-weight:700;margin-top:4px;} .node .sm{font-size:12px;color:var(--ink3);}
+  .ar{flex:.5;min-width:60px;font-weight:700;}
+  .do{background:var(--teal-s);border:1px solid #c3ece6;border-radius:12px;padding:14px 18px;} .do h3{margin:0 0 8px;color:var(--teal);font-size:14px;} .do ol{margin:0;padding-left:20px;color:var(--ink2);font-size:14px;}
+  .recap{display:flex;flex-wrap:wrap;gap:8px;} .chip{background:#f1f3f8;border:1px solid var(--line);border-radius:20px;padding:5px 12px;font-size:13px;}
+  .memo{background:var(--indigo);color:#fff;border-radius:12px;padding:14px 18px;font-weight:700;text-align:center;margin-top:14px;}
+  .nav{text-align:center;color:var(--ink3);font-size:13px;margin-top:8px;} .nav a{color:var(--indigo);text-decoration:none;}
+</style>
+</head>
+<body>
+<header>
+  <div class="crumb">模块 1 · 计算机与网络入门　|　第 2 课</div>
+  <h1>1.2　客户端 vs 服务器：谁请求、谁服务</h1>
+  <p>本课目标：分清"主动开口的"和"等着被叫的"两个角色——这是理解整个网络的核心。</p>
+</header>
+<main>
+
+  <div class="sec">
+    <h2>① 两个角色</h2>
+    <div class="two">
+      <div class="box b1"><div class="e">🙋</div><div class="t">客户端 Client</div><div class="d">主动发起请求的一方。浏览器、手机 App 都是客户端。它"开口要东西"。</div></div>
+      <div class="box b2"><div class="e">🏪</div><div class="t">服务器 Server</div><div class="d">一直运行、等着被请求、收到就干活并回结果的一方。本质是"一个一直开着的程序"。</div></div>
+    </div>
+    <div class="keyline">🔑 客户端"主动问"，服务器"被动答"。先有请求，才有响应。</div>
+  </div>
+
+  <div class="sec">
+    <h2>② 生活比喻：顾客 与 服务台</h2>
+    <div class="flow">
+      <div class="node"><div class="e">🙋</div><div class="lab">顾客（客户端）</div><div class="sm">主动说"我要…"</div></div>
+      <div class="ar" style="color:var(--blue)">── 请求 ──▶</div>
+      <div class="node"><div class="e">🛎️</div><div class="lab">服务台（服务器）</div><div class="sm">一直在岗，等人来</div></div>
+    </div>
+    <p class="muted" style="margin-top:12px">服务台不会主动跑去找你，它就在那"待命"；你走过去开口，它才办事并回你。<b>服务器也一样：先把程序跑起来"待命"（监听），客户端来请求才响应。</b></p>
+  </div>
+
+  <div class="sec">
+    <h2>③ 容易误会的点（重要）</h2>
+    <p class="muted">"服务器"不一定是机房里的大铁箱。<b>它是一个"角色"</b>——任何一个"跑起来等着被请求的程序"都是服务器。</p>
+    <ul class="muted">
+      <li>你电脑上 <code>uvicorn</code> 一跑，<b>你这台普通电脑就临时当了服务器</b>。</li>
+      <li>同一台机器可以<b>既是客户端又是服务器</b>：本机版里，浏览器（客户端）请求同机的服务（服务器），就是"自己问自己"。</li>
+      <li>"客户端/服务器"说的是<b>这次对话里谁问谁答</b>，不是机器的高低贵贱。</li>
+    </ul>
+  </div>
+
+  <div class="sec">
+    <h2>④ 在我们项目里长什么样</h2>
+    <p class="muted">
+      · <b>浏览器</b> = 客户端（你点"开始核对"，它发请求）<br>
+      · <code>web/server.py</code> 跑起来的进程 = <b>服务器</b>（收文件、算账、回结果）<br>
+      · 桌面 <b>EXE 版</b>：界面和逻辑都在本机，不分网络两端——相当于"前台和后厨在同一个屋里直接喊话"，不用走网络。
+    </p>
+  </div>
+
+  <div class="sec">
+    <h2>⑤ 动手 & 小结</h2>
+    <div class="do">
+      <h3>✍️ 动手 1 分钟</h3>
+      <ol>
+        <li>双击桌面 <code>启动考勤核对Web.bat</code> → 那个黑窗口里跑的就是<b>服务器</b>（待命中）。</li>
+        <li>浏览器打开 <code>127.0.0.1:8000</code> → 浏览器就是<b>客户端</b>，它向那个服务器"开口"。</li>
+        <li>把黑窗口关掉再刷新浏览器 → 打不开了：因为<b>服务器下班了，没人应答</b>。</li>
+      </ol>
+    </div>
+    <p style="margin:16px 0 6px;font-weight:700">✅ 小结</p>
+    <div class="recap">
+      <span class="chip">客户端 = 主动请求方（浏览器）</span>
+      <span class="chip">服务器 = 待命应答方（跑着的程序）</span>
+      <span class="chip">先请求后响应</span>
+      <span class="chip">普通电脑也能当服务器</span>
+    </div>
+    <div class="memo">🧠 记忆点：顾客开口（客户端）→ 服务台办事（服务器）</div>
+  </div>
+
+  <div class="nav">上一课 ← <a href="lesson-01-1.html">1.1 程序文件运行</a>　|　下一课 → <a href="lesson-01-3.html">1.3 IP·端口·域名·DNS</a></div>
+
+</main>
+</body>
+</html>

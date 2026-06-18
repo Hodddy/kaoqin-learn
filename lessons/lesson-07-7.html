@@ -1,0 +1,38 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>第 7.7 课 · 与 IT 部门交涉清单</title><link rel="stylesheet" href="lesson.css"></head><body>
+<header><div class="crumb">模块 7 · 企业级部署（★主目标）｜ 第 7 课（模块收官）</div><h1>7.7　与 IT 部门交涉清单：你要什么、给什么、怎么说</h1><p>本课目标：拿着这页，就能跟公司 IT 把部署谈下来。</p></header>
+<main>
+<div class="sec"><h2>① 先一句话讲清你的系统（给 IT 的"自我介绍"）</h2>
+<div class="proj">"一个 <b>Python(FastAPI)</b> 写的内部 Web 系统，HR 上传两个 Excel 在线核对考勤、下载结果。监听 <b>8000</b> 端口，建议只放<b>内网</b>，前面用 <b>Nginx</b> 反代 + HTTPS。我可以提供 <b>Docker 镜像</b>，你们 run 起来即可。"</div></div>
+<div class="sec"><h2>② 你要向 IT 申请的（清单）</h2>
+<table><thead><tr><th>项</th><th>说法</th></tr></thead><tbody>
+<tr><td>一台服务器</td><td>"要一台 Linux 服务器（或一个能跑 Docker 的环境），内网即可"</td></tr>
+<tr><td>端口放行</td><td>"放行 8000（或交给 Nginx 走 80/443）"</td></tr>
+<tr><td>域名</td><td>"给个内网域名，如 kaoqin.公司.com，配好 DNS 指向这台机器"</td></tr>
+<tr><td>HTTPS 证书</td><td>"申请一张证书（内网证书或公司统一证书）"</td></tr>
+<tr><td>访问范围</td><td>"限公司办公网段/HR 组白名单；外部走 VPN"</td></tr>
+<tr><td>账号/数据</td><td>"是否接公司统一登录(SSO)；数据存哪、要不要备份"</td></tr>
+</tbody></table></div>
+<div class="sec"><h2>③ 你需要交付给 IT 的（你的活）</h2>
+<ul class="points">
+<li><b>Docker 镜像 或 部署包</b> + 一份<b>部署文档</b>（我们项目已有 <code>docs/web-deployment.md</code> 可直接给）。</li>
+<li>需要的环境说明：Python 版本、端口、依赖、数据目录。</li>
+<li>启动方式（systemd 配置 / docker run 命令）。</li>
+<li>上线前要补的安全项：鉴权、HTTPS、限制上传（见 7.5）。</li>
+</ul></div>
+<div class="sec"><h2>④ 对接时容易被问的，提前想好</h2>
+<ul class="points">
+<li>"谁能访问？" → 内网 + HR 白名单（+ VPN）。</li>
+<li>"数据安全吗？" → 临时文件处理、可加登录、HTTPS 加密。</li>
+<li>"挂了怎么办？" → systemd 自动重启、有日志、可备份。</li>
+<li>"占多少资源？" → 轻量，一台普通服务器足够。</li>
+</ul></div>
+<div class="sec"><h2>★ 补充：SSO（公司统一登录）是什么</h2>
+<p><b>SSO = 单点登录</b>：公司里<b>登录一次、所有系统通用</b>，不用每个系统单独注册账号、记一堆密码。你登了公司统一账号（钉钉/企业微信/微软365/AD域账号），打开邮箱、OA、考勤系统都自动认得你。</p>
+<div class="proj">对你项目的意义：如果接了公司 SSO，就<b>不用自己做登录</b>，直接复用公司账号体系——更安全、员工也方便。开会时一句话："能否接公司统一登录(SSO)？"<br>底层技术（知道名字即可）：OAuth/OIDC、SAML、LDAP/AD。</div></div>
+<div class="sec"><h2>📒 配套速查卡</h2><p>开会前扫一眼 <a href="it-glossary.html" style="color:var(--indigo);font-weight:600;text-decoration:none">→ 跟 IT 对话·名词速查</a>（端口/服务器/内网域名/网段/VPN/SSO 等全有，配人话+例子）。</p></div>
+<div class="sec"><h2>⑤ 小结</h2>
+<div class="recap"><span class="chip">先讲清系统是什么</span><span class="chip">要：服务器/端口/域名/证书/白名单</span><span class="chip">给：镜像+部署文档</span><span class="chip">提前备好安全问答</span></div>
+<div class="memo">🧠 记忆点：你提供"打包好的程序+文档"，向 IT 要"服务器+网络+证书"</div></div>
+<div class="sec"><div class="done">🎉 模块 7（你的主目标）学完！跟 IT 谈部署，你已经有底气了。</div></div>
+<div class="nav">上一课 ← <a href="lesson-07-6.html">7.6 Docker</a>　|　下一模块 → <a href="lesson-08-1.html">8.1 Git/GitHub</a>　|　<a href="index.html">📚 目录</a></div>
+</main></body></html>

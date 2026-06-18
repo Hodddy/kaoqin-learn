@@ -1,0 +1,22 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>第 2.6 课 · 读写文件·操作 Excel</title><link rel="stylesheet" href="lesson.css"></head><body>
+<header><div class="crumb">模块 2 · Python 编程基础 ｜ 第 6 课</div><h1>2.6　读写文件 + 操作 Excel</h1><p>本课目标：明白程序怎么"读进数据、写出结果"——这是本项目的核心动作。</p></header>
+<main>
+<div class="sec"><h2>① 程序怎么和文件打交道</h2>
+<p>程序运行时数据在内存里（断电就没）。要长期保存或读取，就得"读文件 / 写文件"。Excel 是一种特殊文件，得用专门的工具库来读写。</p></div>
+<div class="sec"><h2>② 两个 Excel 工具库</h2>
+<table><thead><tr><th>库</th><th>能干嘛</th><th>本项目用在</th></tr></thead><tbody>
+<tr><td><code>openpyxl</code></td><td>读 / 写 <code>.xlsx</code></td><td>读公司数据、写出处理结果</td></tr>
+<tr><td><code>xlrd</code></td><td>只读 <code>.xls</code>（老格式）</td><td>读客户数据</td></tr>
+</tbody></table>
+<div class="key">🔑 <code>.xlsx</code> 用 openpyxl；<code>.xls</code>（老格式）用 xlrd。所以客户文件必须存成 .xls。</div></div>
+<div class="sec"><h2>③ 在我们项目里</h2><div class="proj">
+<code>parse_company(...)</code> 用 openpyxl 打开公司 .xlsx，一行行读出考勤。<br>
+<code>read_monthly(...)</code> 用 xlrd 读客户 .xls。<br>
+<code>write_output(...)</code> 用 openpyxl 新建一个 .xlsx，把核对结果写进去、加高亮，最后保存。<br>
+—— "读两份 → 算 → 写一份"，就是整个项目的主线。
+</div></div>
+<div class="sec"><h2>④ 小结</h2>
+<div class="recap"><span class="chip">数据要长期存→读写文件</span><span class="chip">.xlsx→openpyxl</span><span class="chip">.xls→xlrd</span><span class="chip">读两份→算→写一份</span></div>
+<div class="memo">🧠 记忆点：openpyxl 管新 Excel，xlrd 管老 Excel</div></div>
+<div class="nav">上一课 ← <a href="lesson-02-5.html">2.5 函数·模块</a>　|　下一课 → <a href="lesson-02-7.html">2.7 报错·调试</a>　|　<a href="index.html">📚 目录</a></div>
+</main></body></html>

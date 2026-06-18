@@ -1,0 +1,61 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>第 3.4 课 · 核对规则·罚款</title><link rel="stylesheet" href="lesson.css"></head><body>
+<header><div class="crumb">模块 3 · 读懂并能写"核对核心" ｜ 第 4 课</div><h1>3.4　核对规则 与 罚款逻辑</h1><p>本课目标：理解"两份数据怎么比、怎么判通过、怎么算扣款"。</p></header>
+<main>
+<div class="sec"><h2>① 核对 = 比公司侧 vs 客户侧</h2>
+<p>同一个人，公司表和客户表各有一份"应出勤/出勤/加班/请假"。<code>reconcile()</code> 把两边对比，对得上算<b>通过(OK)</b>，否则<b>异常</b>。</p>
+<div class="key">🔑 <b>客户A 要求"精确相等"</b>：它的考勤都是整天/半天，没有碎小数。实测真实数据，两边差异要么正好 <b>0</b>，要么 <b>≥0.5（半天/整天）</b>，所以"对不上就是异常"。</div>
+<table style="margin-top:10px"><thead><tr><th>公司</th><th>客户</th><th>差距</th><th>判定</th></tr></thead><tbody>
+<tr><td>22</td><td>22</td><td>0</td><td>✅ OK</td></tr>
+<tr><td>22</td><td>21.5</td><td>0.5</td><td>❌ 异常（差半天）</td></tr>
+<tr><td>22</td><td>21</td><td>1.0</td><td>❌ 异常（差一天）</td></tr>
+</tbody></table>
+<p class="muted" style="margin-top:8px"><b>关于"容差 TOL"</b>：代码里有个 <code>TOL</code>（在 <code>clients/client_a/config.py</code>），是<b>每个客户各自配</b>的"允许误差"。客户A 设成≈0（精确相等，<code>TOL=1e-6</code> 只为防计算机浮点误差）。<br>如果<b>以后某个客户</b>的数据带小数零头（比如把小时 ÷8 换算成天，会出现 0.375 这种），可以在<b>那个客户自己的 config</b> 里把 TOL 调大去容忍——这和客户A 无关。</p></div>
+<div class="sec"><h2>② 几种"通过"的情形（CASE）</h2>
+<p>核对不是"必须分毫不差才算过"——有几种<b>特殊但合理</b>的情形也算通过。先记两个量（下面反复用）：</p>
+<ul class="points">
+<li><b>diff = 公司应出勤 − 客户应出勤</b>：通常因"补班日"产生，一般 = 0 或 1。</li>
+<li><b>客户有效出勤 = 客户出勤 − 客户加班</b>：把加班刨掉，才好跟公司"出勤"比。</li>
+</ul>
+<div class="key">🔑 什么是"补班日"：如 <b>5 月 9 日</b>，公司要求上班（算应出勤），客户那边当公休放假 → 公司应出勤比客户多 1 天（diff=1）。这一天每个员工干了啥不同，就分出 B / C / G 几种情形。</div>
+
+<p style="margin-top:14px;font-weight:700">5 种通过情形（满足任意一种即 OK）：</p>
+
+<div class="card" style="margin-bottom:10px"><div class="h">① BASIC（最常见，无特殊情况）</div>
+<div class="d"><b>情况</b>：本就该一致，没有补班、公出等花样。<br><b>数字</b>：加班相等、<b>公司出勤 ≈ 客户有效出勤</b>、请假相等。三项都对上 → 通过。</div></div>
+
+<div class="card" style="margin-bottom:10px"><div class="h">② 公出</div>
+<div class="d"><b>情况</b>：公司把某天记成"公出"（在外办公，算上班/出勤），但客户那边把这天记成了"请假"。<br><b>数字</b>：公司出勤比客户有效出勤<b>多出"公出天数"</b>；同时公司请假比客户<b>少"公出天数"</b>（公司的公出 = 客户的请假）。对得上 → 通过，结果标注"X月X日记录为公出"。</div></div>
+
+<div class="card" style="margin-bottom:10px"><div class="h">③ B：补班日员工请假休息</div>
+<div class="d"><b>情况</b>：补班日那天员工没上班、请假休息了。<br><b>数字</b>：出勤、加班都相等；<b>公司请假比客户多 diff 天</b>（公司算他请假，客户那天本就放假、没这条记录）。→ 通过。</div></div>
+
+<div class="card" style="margin-bottom:10px"><div class="h">④ C：补班日员工去客户处上班</div>
+<div class="d"><b>情况</b>：补班日员工到客户那边上班了。对公司是"出勤"；对客户（放假日还来）算"加班"。<br><b>数字</b>：请假相等；<b>客户加班比公司多 diff 天</b>、且<b>公司出勤比客户有效出勤多 diff 天</b>。→ 通过。</div></div>
+
+<div class="card" style="margin-bottom:10px"><div class="h">⑤ G：补班日公司记为"公出"</div>
+<div class="d"><b>情况</b>：补班日那天，公司把它记成了"公出"。<br><b>数字</b>：加班、请假相等；出勤差 = diff（差额模式同 B），但用"公出"解释。→ 通过，结果标注"X月X日记录为公出"。</div></div>
+
+<div class="key" style="background:#fef2f2;border-color:#fecaca;border-left-color:#dc2626;color:#991b1b">⚠️ <b>通过后还有一道关：逐日冲突检测（始终执行）</b>。即使上面月度数字全对上，只要逐天对照发现<b>矛盾</b>，就<b>强制改判异常</b>：<br>① 客户当天记"请假"，公司当天却记"公出"（公出=上班，两者矛盾）；<br>② 客户的公共假日（放假）那天，公司却记了"出勤 / 公出"。</div>
+</div>
+<div class="sec"><h2>③ 罚款规则（完整）</h2>
+<p style="margin:0 0 6px"><b>客户侧</b>（基准 200 元/次，代码 <code>clients/client_a/penalty.py</code>）：</p>
+<table><thead><tr><th>情形</th><th>罚则</th></tr></thead><tbody>
+<tr><td>迟到/早退 ≤30 分钟</td><td><b>首次免</b>；第 2 次起 <b>200 元/次</b></td></tr>
+<tr><td>迟到/早退 30–60 分钟</td><td>每次 <b>200 元</b></td></tr>
+<tr><td>迟到/早退 60–120 分钟</td><td>算<b>旷工半天</b>（不扣钱，写备注）</td></tr>
+<tr><td>迟到/早退 ≥120 分钟</td><td>算<b>旷工一天</b>（不扣钱，写备注）</td></tr>
+<tr><td>漏打卡已补卡</td><td>每次 <b>200 元</b></td></tr>
+</tbody></table>
+<p class="muted" style="margin:6px 0 14px">注：迟到和早退<b>分别计数</b>；≤30 分钟的迟到+早退合并算次数（同一天又迟到又早退算 2 次，第 1 次免、第 2 次起每次 200）。</p>
+<p style="margin:0 0 6px"><b>公司侧 · 漏签</b>（代码 <code>core/penalty_company.py</code>）：</p>
+<table><thead><tr><th>漏签次数</th><th>罚则</th></tr></thead><tbody>
+<tr><td>≤3 次</td><td><b>免罚</b>，不标注</td></tr>
+<tr><td>4–5 次</td><td>超出 3 次的部分 <b>50 元/次</b>（即第 4、5 次各 50）</td></tr>
+<tr><td>≥6 次</td><td>视为<b>缺勤</b>，出异常提示<b>需人工处理</b>（不自动扣钱）</td></tr>
+</tbody></table>
+<div class="proj" style="margin-top:12px">有扣款 <b>或</b> 工时与出勤不一致时，结果行<b>黄色高亮</b>。这些金额/阈值（200、50、次数线）都写在上面两个文件里，要调改那里即可。</div></div>
+<div class="sec"><h2>④ 小结</h2>
+<div class="recap"><span class="chip">两边对比+容差TOL</span><span class="chip">CASE判通过</span><span class="chip">逐日冲突可翻案</span><span class="chip">按规则算扣款</span></div>
+<div class="memo">🧠 记忆点：比两边 → 容差内算过 → 按规矩算钱</div></div>
+<div class="nav">上一课 ← <a href="lesson-03-3.html">3.3 解析·年月</a>　|　下一课 → <a href="lesson-03-5.html">3.5 插件化</a>　|　<a href="index.html">📚 目录</a></div>
+</main></body></html>

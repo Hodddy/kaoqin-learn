@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>学习视频资源 · 按模块</title>
+<style>
+  :root{--ink:#1f2330;--ink2:#586074;--ink3:#9aa0ae;--bg:#f4f6fa;--card:#fff;--line:#e6e9f0;--indigo:#4f46e5;}
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,"Segoe UI","Microsoft YaHei",Roboto,sans-serif;font-size:14.5px;line-height:1.65;}
+  header{background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;padding:24px 28px;}
+  header h1{margin:0;font-size:20px;}
+  header p{margin:8px 0 0;opacity:.92;font-size:13px;}
+  .progress{margin-top:12px;background:rgba(255,255,255,.18);border-radius:20px;padding:6px 14px;display:inline-block;font-size:13px;font-weight:700;}
+  main{max-width:920px;margin:0 auto;padding:22px;}
+  .tip{background:#eef2ff;border:1px solid #d9defb;border-radius:12px;padding:14px 18px;margin-bottom:18px;font-size:13.5px;color:var(--ink2);}
+  .tip b{color:var(--indigo);}
+  .yt-sec{background:#fff1f1;border:1px solid #ffd4d4;border-radius:14px;padding:16px 20px;margin-bottom:18px;}
+  .yt-sec h2{margin:0 0 4px;font-size:16px;color:#e0312f;}
+  .yt-sec .sub{font-size:12.5px;color:var(--ink2);margin-bottom:12px;}
+  .yt-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .yt-ch{display:block;text-decoration:none;color:inherit;background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 13px;}
+  .yt-ch:hover{border-color:#e0312f;}
+  .yt-ch .n{font-weight:700;font-size:14px;color:#c81e1e;}
+  .yt-ch .d{font-size:12.5px;color:var(--ink2);margin-top:2px;}
+  .yt-ch .m{font-size:11px;color:var(--ink3);margin-top:3px;}
+  @media(max-width:600px){.yt-grid{grid-template-columns:1fr;}}
+  .mod{background:var(--card);border:1px solid var(--line);border-left:6px solid;border-radius:14px;padding:14px 18px 8px;margin-bottom:14px;box-shadow:0 1px 3px rgba(16,24,40,.04);}
+  .mod h2{margin:0 0 10px;font-size:16px;display:flex;align-items:center;gap:9px;}
+  .mod h2 .badge{width:28px;height:28px;border-radius:8px;color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;}
+  .res{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px dashed #eef0f4;}
+  .res:last-child{border-bottom:none;}
+  .res input{margin-top:4px;width:17px;height:17px;flex-shrink:0;cursor:pointer;accent-color:var(--indigo);}
+  .res .body{flex:1;min-width:0;}
+  .res .line1{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+  .res .name{font-weight:700;}
+  .res.done .name{text-decoration:line-through;color:var(--ink3);}
+  .plat{font-size:11px;font-weight:700;padding:1px 8px;border-radius:20px;}
+  .p-bili{background:#ffeef4;color:#fb7299;} .p-yt{background:#ffeaea;color:#e0312f;}
+  .kw{font-family:Consolas,monospace;font-size:12.5px;background:#f1f3f8;border:1px solid var(--line);border-radius:5px;padding:1px 7px;color:var(--indigo);text-decoration:none;}
+  .kw:hover{background:#e6e9ff;text-decoration:underline;}
+  .note{font-size:12.5px;color:var(--ink2);margin-top:3px;}
+  .m12{border-left-color:#0891b2;} .m12 .badge{background:#0891b2;}
+  .m4{border-left-color:#16a34a;} .m4 .badge{background:#16a34a;}
+  .m5{border-left-color:#7c3aed;} .m5 .badge{background:#7c3aed;}
+  .m6{border-left-color:#db2777;} .m6 .badge{background:#db2777;}
+  .m7{border-left-color:#d97706;} .m7 .badge{background:#d97706;}
+  .mx{border-left-color:#475569;} .mx .badge{background:#475569;}
+  .reset{margin:6px 0 0;background:none;border:1px solid var(--line);border-radius:8px;padding:6px 12px;color:var(--ink2);font:inherit;font-size:12.5px;cursor:pointer;}
+</style>
+</head>
+<body>
+<header>
+  <h1>🎬 学习视频资源 · 按模块</h1>
+  <p>每个关键词点了就是"一键搜索"（永不失效）；勾「已看」自动记住。</p>
+  <div class="progress" id="prog">已看 0 / 0</div>
+</header>
+<main>
+  <div class="tip">
+    <b>怎么用：</b>点蓝色「<span class="kw">关键词</span>」= 直接跳到 B站/YouTube 的搜索结果，挑<b>播放高、较新</b>的看。
+    国内 <b style="color:#fb7299">B站</b> 直连；<b style="color:#e0312f">YouTube</b> 需梯子。你有梯子，<b>下面这块 YouTube 频道质量更高，优先看</b>。
+  </div>
+
+  <!-- YouTube 频道精选 -->
+  <div class="yt-sec">
+    <h2>🎥 YouTube 优质频道精选（有梯子强烈推荐）</h2>
+    <div class="sub">这些是全球公认的好频道，点进去配合"模块"找对应课程。英文为主，多有自动字幕。</div>
+    <div class="yt-grid">
+      <a class="yt-ch" href="https://www.youtube.com/@freecodecamp" target="_blank"><div class="n">freeCodeCamp ▶</div><div class="d">几小时一镜到底的完整免费课，啥都有</div><div class="m">模块 2/4/5/6/7 都能找到对应大课</div></a>
+      <a class="yt-ch" href="https://www.youtube.com/@coreyms" target="_blank"><div class="n">Corey Schafer ▶</div><div class="d">Python 基础讲得极清楚（变量/函数/文件…）</div><div class="m">模块 2 Python 基础</div></a>
+      <a class="yt-ch" href="https://www.youtube.com/@programmingwithmosh" target="_blank"><div class="n">Programming with Mosh ▶</div><div class="d">Python/前端 入门，条理清晰好上手</div><div class="m">模块 2 / 5</div></a>
+      <a class="yt-ch" href="https://www.youtube.com/@Fireship" target="_blank"><div class="n">Fireship ▶</div><div class="d">"100秒讲懂X" 神速建立概念（HTTP/Docker/网络）</div><div class="m">模块 1 / 7 概念速通</div></a>
+      <a class="yt-ch" href="https://www.youtube.com/@TraversyMedia" target="_blank"><div class="n">Traversy Media ▶</div><div class="d">Web 全栈实战，HTML/CSS/JS 到后端</div><div class="m">模块 5 前端 / 全栈</div></a>
+      <a class="yt-ch" href="https://www.youtube.com/@TechWorldwithNana" target="_blank"><div class="n">TechWorld with Nana ▶</div><div class="d">Docker/部署/DevOps 讲得最透 ★</div><div class="m">模块 7 部署（你的主目标）</div></a>
+      <a class="yt-ch" href="https://www.youtube.com/@NetworkChuck" target="_blank"><div class="n">NetworkChuck ▶</div><div class="d">Linux/网络/Docker 入门，风格有趣</div><div class="m">模块 7 服务器/网络</div></a>
+      <a class="yt-ch" href="https://www.youtube.com/@ArjanCodes" target="_blank"><div class="n">ArjanCodes ▶</div><div class="d">Python 进阶/工程化/写好代码</div><div class="m">模块 3 / 8</div></a>
+    </div>
+  </div>
+
+  <!-- 模块1-2 -->
+  <div class="mod m12">
+    <h2><span class="badge">1·2</span>计算机/网络 + Python 基础（先看）</h2>
+    <div class="res"><input type="checkbox" data-id="r1"><div class="body"><div class="line1"><span class="name">小甲鱼《零基础入门学习 Python》</span><span class="plat p-bili">B站</span><a class="kw" href="https://search.bilibili.com/all?keyword=小甲鱼+Python" target="_blank">🔍 小甲鱼 Python</a></div><div class="note">最适合零基础，风格轻松幽默。</div></div></div>
+    <div class="res"><input type="checkbox" data-id="r2"><div class="body"><div class="line1"><span class="name">黑马程序员 Python 入门</span><span class="plat p-bili">B站</span><a class="kw" href="https://search.bilibili.com/all?keyword=黑马+Python+入门" target="_blank">🔍 黑马 Python 入门</a></div><div class="note">体系完整、配套练习多。</div></div></div>
+    <div class="res"><input type="checkbox" data-id="r3"><div class="body"><div class="line1"><span class="name">哈佛 CS50（中文字幕）</span><span class="plat p-bili">B站</span><a class="kw" href="https://search.bilibili.com/all?keyword=CS50+中文" target="_blank">🔍 CS50 中文</a></div><div class="note">讲"计算机怎么回事"的神课，打地基。</div></div></div>
+    <div class="res"><input type="checkbox" data-id="r4"><div class="body"><div class="line1"><span class="name">HTTP / 计算机网络</span><span class="plat p-bili">B站</span><a class="kw" href="https://search.bilibili.com/all?keyword=HTTP+协议+讲解" target="_blank">🔍 HTTP 协议</a> <span class="plat p-yt">YT</span><a class="kw" href="https://www.youtube.com/results?search_query=HTTP+explained+fireship" target="_blank">🔍 HTTP explained</a></div><div class="note">理解请求/响应、IP/端口/域名（模块1）。</div></div></div>
+  </div>
+
+  <!-- 模块4 -->
+  <div class="mod m4">
+    <h2><span class="badge">4</span>Web 后端（FastAPI）</h2>
+    <div class="res"><input type="checkbox" data-id="r5"><div class="body"><div class="line1"><span class="name">FastAPI 入门实战</span><span class="plat p-bili">B站</span><a class="kw" href="https://search.bilibili.com/all?keyword=FastAPI+教程" target="_blank">🔍 FastAPI 教程</a></div><div class="note">我们后端用的就是它。</div></div></div>
+    <div class="res"><input type="checkbox" data-id="r6"><div class="body"><div class="line1"><span class="name">freeCodeCamp · FastAPI Course</span><span class="plat p-yt">YouTube</span><a class="kw" href="https://www.youtube.com/results?search_query=freeCodeCamp+FastAPI+course" target="_blank">🔍 freeCodeCamp FastAPI</a></div><div class="note">几小时完整课，质量高（需梯子）。</div></div></div>
+    <div class="res"><input type="checkbox" data-id="r7"><div class="body"><div class="line1"><span class="name">Flask 入门（备选）</span><span class="plat p-bili">B站</span><a class="kw" href="https://search.bilibili.com/all?keyword=Flask+入门" target="_blank">🔍 Flask 入门</a></div><div class="note">概念与 FastAPI 通用。</div></div></div>
+  </div>
+
+  <!-- 模块5 -->
+  <div class="mod m5">
+    <h2><span class="badge">5</span>前端三件套（HTML/CSS/JS）</h2>
+    <div class="res"><input type="checkbox" data-id="r8"><div class="body"><div class="line1"><span class="name">pink 老师 前端</span><span class="plat p-bili">B站</span><a class="kw" href="https://search.bilibili.com/all?keyword=pink+前端" target="_blank">🔍 pink 前端</a></div><div class="note">国内经典 HTML/CSS/JS 入门。</div></div></div>
+    <div class="res"><input type="checkbox" data-id="r9"><div class="body"><div class="line1"><span class="name">黑马 前端入门</span><span class="plat p-bili">B站</span><a class="kw" href="https://search.bilibili.com/all?keyword=黑马+前端+入门" target="_blank">🔍 黑马 前端</a></div><div class="note">体系化、有项目实战。</div></div></div>
+    <div class="res"><input type="checkbox" data-id="r10"><div class="body"><div class="line1"><span class="name">Web 前端全栈（英文）</span><span class="plat p-yt">YouTube</span><a class="kw" href="https://www.youtube.com/results?search_query=traversy+media+html+css+crash+course" target="_blank">🔍 Traversy HTML CSS</a></div><div class="note">Traversy Media 实战风（需梯子）。</div></div></div>
+  </div>
+
+  <!-- 模块6 -->
+  <div class="mod m6">
+    <h2><span class="badge">6</span>数据库</h2>
+    <div class="res"><input type="checkbox" data-id="r11"><div class="body"><div class="line1"><span class="name">SQL 入门</span><span class="plat p-bili">B站</span><a class="kw" href="https://search.bilibili.com/all?keyword=SQL+入门" target="_blank">🔍 SQL 入门</a> <span class="plat p-yt">YT</span><a class="kw" href="https://www.youtube.com/results?search_query=freeCodeCamp+SQL+tutorial" target="_blank">🔍 freeCodeCamp SQL</a></div><div class="note">先懂"增删改查"。</div></div></div>
+    <div class="res"><input type="checkbox" data-id="r12"><div class="body"><div class="line1"><span class="name">SQLite 教程</span><span class="plat p-bili">B站</span><a class="kw" href="https://search.bilibili.com/all?keyword=SQLite+教程" target="_blank">🔍 SQLite 教程</a></div><div class="note">最轻量，本项目加"历史记录"用它。</div></div></div>
+  </div>
+
+  <!-- 模块7 -->
+  <div class="mod m7">
+    <h2><span class="badge">7 ★</span>部署 / 运维（你的主目标，重点看）</h2>
+    <div class="res"><input type="checkbox" data-id="r13"><div class="body"><div class="line1"><span class="name">韩顺平 Linux</span><span class="plat p-bili">B站</span><a class="kw" href="https://search.bilibili.com/all?keyword=韩顺平+Linux" target="_blank">🔍 韩顺平 Linux</a></div><div class="note">服务器都跑 Linux，必备。</div></div></div>
+    <div class="res"><input type="checkbox" data-id="r14"><div class="body"><div class="line1"><span class="name">Docker 入门</span><span class="plat p-bili">B站</span><a class="kw" href="https://search.bilibili.com/all?keyword=Docker+入门+教程" target="_blank">🔍 Docker 入门</a> <span class="plat p-yt">YT</span><a class="kw" href="https://www.youtube.com/results?search_query=TechWorld+with+Nana+docker+tutorial" target="_blank">🔍 Nana Docker</a></div><div class="note">TechWorld with Nana 讲得最透（对应 7.6）。</div></div></div>
+    <div class="res"><input type="checkbox" data-id="r15"><div class="body"><div class="line1"><span class="name">Nginx 入门</span><span class="plat p-bili">B站</span><a class="kw" href="https://search.bilibili.com/all?keyword=Nginx+入门+教程" target="_blank">🔍 Nginx 入门</a></div><div class="note">反向代理、HTTPS（对应 7.3）。</div></div></div>
+    <div class="res"><input type="checkbox" data-id="r16"><div class="body"><div class="line1"><span class="name">Python 项目部署实战</span><span class="plat p-bili">B站</span><a class="kw" href="https://search.bilibili.com/all?keyword=FastAPI+部署+nginx" target="_blank">🔍 FastAPI 部署</a> <span class="plat p-yt">YT</span><a class="kw" href="https://www.youtube.com/results?search_query=deploy+fastapi+nginx+uvicorn+production" target="_blank">🔍 deploy fastapi</a></div><div class="note">把"本机能跑"变成"服务器稳定服务"。</div></div></div>
+  </div>
+
+  <!-- 综合 -->
+  <div class="mod mx">
+    <h2><span class="badge">★</span>综合实战（完整项目一条龙）</h2>
+    <div class="res"><input type="checkbox" data-id="r17"><div class="body"><div class="line1"><span class="name">FastAPI 项目实战 / 全栈</span><span class="plat p-bili">B站</span><a class="kw" href="https://search.bilibili.com/all?keyword=FastAPI+项目实战" target="_blank">🔍 FastAPI 项目实战</a> <span class="plat p-yt">YT</span><a class="kw" href="https://www.youtube.com/results?search_query=fastapi+full+stack+project+tutorial" target="_blank">🔍 fastapi full project</a></div><div class="note">从前端到后端到部署，和我们这个最像。</div></div></div>
+  </div>
+
+  <button class="reset" onclick="resetAll()">清空所有"已看"记录</button>
+</main>
+
+<script>
+  const boxes=[...document.querySelectorAll('.res input')];
+  function save(){const m={};boxes.forEach(b=>m[b.dataset.id]=b.checked);localStorage.setItem('kq_res',JSON.stringify(m));}
+  function refresh(){let done=0;boxes.forEach(b=>{b.closest('.res').classList.toggle('done',b.checked);if(b.checked)done++;});document.getElementById('prog').textContent=`已看 ${done} / ${boxes.length}`;}
+  (function(){let m={};try{m=JSON.parse(localStorage.getItem('kq_res')||'{}');}catch(e){}boxes.forEach(b=>{b.checked=!!m[b.dataset.id];b.addEventListener('change',()=>{save();refresh();});});refresh();})();
+  function resetAll(){boxes.forEach(b=>b.checked=false);save();refresh();}
+</script>
+</body>
+</html>

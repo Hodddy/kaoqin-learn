@@ -1,0 +1,21 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>第 7.5 课 · 安全与鉴权</title><link rel="stylesheet" href="lesson.css"></head><body>
+<header><div class="crumb">模块 7 · 企业级部署（★主目标）｜ 第 5 课</div><h1>7.5　安全与鉴权：登录、token、最小权限</h1><p>本课目标：让系统"只让该用的人用"，并守住几条安全底线。</p></header>
+<main>
+<div class="sec"><h2>① 鉴权 = 先证明"你是谁、能不能用"</h2>
+<p>现在 Web 版<b>没有登录</b>，谁打开都能用、能上传——内网小范围还行，对外或正式用必须加。两个词：<br>
+· <b>认证(谁)</b>：登录，证明你是张三。<br>
+· <b>授权(能干啥)</b>：张三能不能看别人的、能不能管理。</p></div>
+<div class="sec"><h2>② token：登录后的"通行证"</h2>
+<p>登录成功后，服务器发一个 <b>token</b>（一串令牌）。之后每次请求带上它，服务器一看就知道"是已登录的张三"。还记得我们调 GitHub 时请求头里的 <code>Authorization: Bearer …</code> 吗？那就是 token。</p></div>
+<div class="sec"><h2>③ 几条安全底线（跟 IT 谈也会被问）</h2>
+<ul class="points">
+<li><b>最小权限</b>：给的权限够用就行，别什么都开（我们给 GitHub token 选 scope 时就用了这原则）。</li>
+<li><b>密钥别进代码/聊天</b>：密码、token 用环境变量或密钥管理，别硬写进代码、别明文发（你那个 PAT 用完该吊销）。</li>
+<li><b>全程 HTTPS</b>：别让密码明文在网上跑。</li>
+<li><b>限制上传</b>：限文件类型/大小，防恶意文件。</li>
+</ul></div>
+<div class="sec"><h2>④ 小结</h2>
+<div class="recap"><span class="chip">认证(谁)+授权(能干啥)</span><span class="chip">token=通行证</span><span class="chip">最小权限</span><span class="chip">密钥别明文</span></div>
+<div class="memo">🧠 记忆点：先登录拿 token，权限给最小，密钥不外露</div></div>
+<div class="nav">上一课 ← <a href="lesson-07-4.html">7.4 网络·防火墙</a>　|　下一课 → <a href="lesson-07-6.html">7.6 Docker</a>　|　<a href="index.html">📚 目录</a></div>
+</main></body></html>
