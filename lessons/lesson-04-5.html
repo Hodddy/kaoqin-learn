@@ -4,8 +4,14 @@
 <div class="sec"><h2>① 后端只"编排"，不"算账"</h2>
 <p>Web 接口收到文件后，<b>不自己写核对逻辑</b>，而是调用 <code>core/service.py</code> 里的 <code>run_reconcile(...)</code>——那是桌面版也在用的同一套核心。</p>
 <div class="key">🔑 后端 = 收发员；算账的活外包给"服务层"。一套逻辑，两个外壳共用。</div></div>
-<div class="sec"><h2>② 进度怎么传出来：ProgressReporter</h2>
-<p>核对过程中要报"正在处理 X 月""完成 N 人"。服务层用一个<b>回调</b>（ProgressReporter）把这些消息抛出来：桌面版接成界面日志，Web 版收集成 <code>logs</code> 随响应返回。同一套核心，进度各接各的。</p></div>
+<div class="sec"><h2>② 进度怎么传出来：回调 ProgressReporter</h2>
+<p>核对要花点时间，过程中想报"正在处理 5 月""完成 36 人"这些<b>进度</b>。但<b>进度该显示到哪，两个外壳完全不同</b>：桌面版要显示到界面日志框，Web 版要攒起来随响应返回。服务层（大厨）在后厨，<b>不知道也不该管</b>进度最后显示到哪。</p>
+<div class="key">🔑 解决办法叫"<b>回调(callback)</b>"：大厨不自己决定进度怎么显示，而是<b>每出一条就"喊一声"</b>，谁听、怎么处理由门面自己接。这个"喊一声"的约定就是 <code>ProgressReporter</code>。</div>
+<table style="margin-top:10px"><thead><tr><th>谁</th><th>把"喊声"接成什么</th></tr></thead><tbody>
+<tr><td>桌面版</td><td>显示到界面的日志框</td></tr>
+<tr><td>Web 版</td><td>攒进一个列表，最后随响应返回（<code>logs</code>）</td></tr>
+</tbody></table>
+<p class="muted" style="margin-top:8px">🍽️ 比喻：大厨喊"<b>第5桌的菜好了</b>"——<b>堂食服务员</b>听到端去桌子、<b>外卖打包员</b>听到装进袋子。大厨只管喊，谁听、怎么处理各门面自己定，这就是回调。</p></div>
 <div class="sec"><h2>③ 在我们项目里</h2><div class="proj">
 这正是我们做 Web 版的第一步——先把对账主循环从桌面界面里抽成 <code>run_reconcile</code>（脱离 PySide6），桌面/批测试/Web 三处共用。<br>
 所以 <code>web/server.py</code> 的核心就一句：<code>rep = run_reconcile(公司, 客户, 客户key, 月份, ...)</code>。
